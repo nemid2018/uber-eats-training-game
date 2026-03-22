@@ -1215,171 +1215,232 @@ body {
 .btn-w3-enter { background: #00c8ff; color: #000; font-weight: 800; flex-shrink: 0; }
 .btn-w3-enter:hover { background: #00a8d8; }
 
-/* ═══ WORLD 3 OVERLAY ════════════════════════════════════════════════════════ */
+/* ═══ WORLD 3 — SALES KART ═══════════════════════════════════════════════════ */
 #world3-overlay {
   position: fixed; inset: 0; z-index: 800;
-  background: linear-gradient(160deg, #020812 0%, #041824 50%, #020c08 100%);
+  background: #0a0a12;
   display: flex; flex-direction: column; align-items: center; overflow: hidden;
   animation: gauntletReveal 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 #world3-overlay.hidden { display: none !important; }
-#world3-overlay::before {
-  content: '';
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(0,200,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 55% 8%,  rgba(0,200,255,0.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80% 30%, rgba(0,200,255,0.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 25% 65%, rgba(0,200,255,0.15) 0%, transparent 100%),
-    radial-gradient(2px 2px at 70% 75%, rgba(0,200,255,0.2) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 40% 90%, rgba(6,193,103,0.2) 0%, transparent 100%);
-}
+
+/* Shared screen base */
 .w3-screen {
-  position: relative; z-index: 1; width: 100%; max-width: 680px;
-  flex: 1; display: flex; flex-direction: column;
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 24px 20px 36px; overflow-y: auto;
+  z-index: 2;
 }
 .w3-screen.hidden { display: none !important; }
 
-/* Intro */
+/* ── Intro screen ── */
+.w3-intro-screen {
+  background: linear-gradient(160deg, #020812 0%, #041824 50%, #020c08 100%);
+}
 .w3-world-tag {
-  font-size: 0.68rem; font-weight: 800; letter-spacing: 3px; color: #00c8ff;
-  text-transform: uppercase; border: 1.5px solid rgba(0,200,255,0.45);
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 3px; color: #06C167;
+  text-transform: uppercase; border: 1.5px solid rgba(6,193,103,0.5);
   border-radius: 100px; padding: 5px 16px; margin-bottom: 20px;
 }
 .w3-h1 {
-  font-size: 3.2rem; font-weight: 900; color: #fff; letter-spacing: -1.5px;
+  font-size: 3.4rem; font-weight: 900; color: #fff; letter-spacing: -1.5px;
   margin-bottom: 14px; text-align: center;
-  text-shadow: 0 0 40px rgba(0,200,255,0.35);
+  text-shadow: 0 0 40px rgba(6,193,103,0.5), 0 0 80px rgba(6,193,103,0.2);
 }
 .w3-intro-text {
-  font-size: 0.92rem; color: rgba(255,255,255,0.5); line-height: 1.65;
-  text-align: center; max-width: 420px; margin-bottom: 26px;
+  font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.65;
+  text-align: center; max-width: 400px; margin-bottom: 22px;
 }
-.w3-meta strong { color: #00c8ff !important; }
-.btn-w3-gold {
-  background: #00c8ff; color: #000; font-weight: 800; margin-bottom: 12px;
+.w3-intro-controls { margin-bottom: 26px; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.w3-ctrl-hint { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+.w3-meta strong { color: #06C167 !important; }
+.btn-w3-gold { background: #06C167; color: #000; font-weight: 800; margin-bottom: 12px; }
+.btn-w3-gold:hover { background: #05a356; }
+
+/* ── Race game screen ── */
+.w3-mk-game { padding: 0; position: fixed !important; }
+#mk-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block;
 }
-.btn-w3-gold:hover { background: #00a8d8; }
+.mk-hidden { display: none !important; }
 
-/* HUD */
-.w3-hud {
-  width: 100%; display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+/* HUD: top-left */
+#mk-hud-tl {
+  position: absolute; top: 12px; left: 12px; z-index: 10;
+  display: flex; flex-direction: column; gap: 4px;
 }
-.w3-gate-label { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); white-space: nowrap; }
-.w3-progress-wrap { flex: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 100px; overflow: hidden; }
-.w3-progress-fill { height: 100%; background: #00c8ff; border-radius: 100px; width: 0%; transition: width 0.4s ease; }
-.w3-score-display { font-size: 0.9rem; font-weight: 800; color: #00c8ff; min-width: 44px; text-align: right; }
-.w3-streak-chip { font-size: 0.85rem; font-weight: 800; color: #f59e0b; }
-
-/* Objection panel */
-.w3-objection-panel {
-  width: 100%; background: rgba(0,200,255,0.07);
-  border: 1px solid rgba(0,200,255,0.18);
-  border-radius: 12px; padding: 12px 16px;
-  font-size: 0.85rem; color: rgba(255,255,255,0.85);
-  line-height: 1.5; margin-bottom: 10px; text-align: center;
-  min-height: 52px; display: flex; align-items: center; justify-content: center;
+#mk-pos-badge {
+  background: #06C167; color: #000;
+  font-size: 1.1rem; font-weight: 900; letter-spacing: 1px;
+  padding: 4px 14px; border-radius: 100px;
+  text-shadow: none; min-width: 52px; text-align: center;
 }
+#mk-pos-badge.pos-2nd { background: #c0c0c0; }
+#mk-pos-badge.pos-3rd { background: #cd7f32; }
+#mk-pos-badge.pos-4th { background: #555; color: #fff; }
+#mk-lives-hud { font-size: 0.85rem; letter-spacing: 2px; }
 
-/* Road */
-#w3-game { justify-content: flex-start; padding-top: 16px; gap: 8px; }
-.w3-road {
-  width: 100%; flex: 1; min-height: 220px; border-radius: 16px;
-  position: relative; overflow: hidden;
-  background-color: #141420;
-  background-image: repeating-linear-gradient(
-    to bottom, #1c1c2e 0px, #1c1c2e 44px, #141420 44px, #141420 50px
-  );
-  animation: roadScroll var(--road-spd, 0.55s) linear infinite;
-  border: 1px solid rgba(255,255,255,0.06);
-  touch-action: none;
+/* HUD: top-right */
+#mk-hud-tr {
+  position: absolute; top: 12px; right: 12px; z-index: 10;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
 }
-@keyframes roadScroll { to { background-position: 0 100px; } }
+#mk-score-hud {
+  font-size: 1.4rem; font-weight: 900; color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+#mk-streak-hud { font-size: 0.85rem; font-weight: 800; color: #f59e0b; }
 
-.w3-lane-line {
-  position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 18px,
-    transparent 18px, transparent 36px
-  );
-  animation: roadScroll var(--road-spd, 0.55s) linear infinite;
+/* Progress bar (top center) */
+#mk-progress-wrap {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  z-index: 10; width: 44%; max-width: 260px;
+  height: 8px; background: rgba(0,0,0,0.5); border-radius: 100px;
+  overflow: visible;
+}
+#mk-progress-fill {
+  height: 100%; width: 0%; background: #06C167;
+  border-radius: 100px; transition: width 0.3s;
+}
+#mk-progress-flag {
+  position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+  font-size: 1rem;
 }
 
-/* Car */
-.w3-car {
-  position: absolute; bottom: 12%; left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.2rem; line-height: 1;
-  filter: drop-shadow(0 0 10px rgba(0,200,255,0.6));
-  z-index: 10; pointer-events: none;
+/* Power-up banner */
+#mk-powerup-banner {
+  position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+  z-index: 15; background: rgba(0,0,0,0.82);
+  border: 2px solid #06C167; border-radius: 12px;
+  padding: 8px 22px; color: #06C167;
+  font-size: 1rem; font-weight: 800; letter-spacing: 1px;
+  animation: puBannerIn 0.3s ease;
 }
-.w3-car.boost { animation: carBoost 0.4s ease; filter: drop-shadow(0 0 22px rgba(0,200,255,1)); }
-.w3-car.crash { animation: carCrash 0.45s ease; }
-@keyframes carBoost { 0%,100%{transform:translateX(-50%) scale(1)} 50%{transform:translateX(-50%) scale(1.22)} }
-@keyframes carCrash { 0%,100%{transform:translateX(-50%)} 25%{transform:translateX(calc(-50% - 12px))} 75%{transform:translateX(calc(-50% + 12px))} }
+@keyframes puBannerIn { from { transform: translateX(-50%) scale(0.7); opacity:0; } to { transform: translateX(-50%) scale(1); opacity:1; } }
 
-/* Pod layer */
-#w3-pod-layer { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+/* Mini-map */
+#mk-minimap {
+  position: absolute; bottom: 80px; right: 12px; z-index: 10;
+  background: rgba(0,0,0,0.65); border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 10px; padding: 4px;
+}
+#mk-mm-canvas { display: block; }
 
-/* Pods — all look the same so player must READ the text */
-.w3-pod {
-  position: absolute;
-  width: 30%;
-  min-height: 58px;
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(0,200,255,0.38);
-  border-radius: 12px;
-  padding: 7px 8px;
-  font-size: 0.67rem; font-weight: 600; color: rgba(255,255,255,0.88);
-  text-align: center;
+/* Countdown overlay */
+#mk-countdown {
+  position: absolute; inset: 0; z-index: 30;
   display: flex; align-items: center; justify-content: center;
-  line-height: 1.35;
-  box-shadow: 0 0 12px rgba(0,200,255,0.12), inset 0 0 8px rgba(0,200,255,0.04);
-  transition: opacity 0.25s, transform 0.2s;
+  background: rgba(0,0,0,0.55);
 }
-.w3-pod-collected {
-  background: rgba(6,193,103,0.32) !important;
-  border-color: #06C167 !important;
-  box-shadow: 0 0 24px rgba(6,193,103,0.6) !important;
-  transform: scale(1.07) !important;
+#mk-countdown-num {
+  font-size: 9rem; font-weight: 900; color: #fff;
+  text-shadow: 0 0 60px rgba(6,193,103,0.8);
+  animation: countPop 0.35s ease;
 }
-.w3-pod-wrong-hit {
-  background: rgba(239,68,68,0.28) !important;
-  border-color: #ef4444 !important;
-  opacity: 0.3 !important;
+@keyframes countPop { 0%{transform:scale(1.8);opacity:0} 100%{transform:scale(1);opacity:1} }
+
+/* Question popup */
+#mk-q-overlay {
+  position: absolute; inset: 0; z-index: 25;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+#mk-q-box {
+  background: #111827; border: 2px solid rgba(6,193,103,0.5);
+  border-radius: 20px; padding: 24px 20px 20px;
+  width: 92%; max-width: 480px;
+  display: flex; flex-direction: column; gap: 14px;
+  box-shadow: 0 0 60px rgba(6,193,103,0.2);
+  animation: qBoxIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes qBoxIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
+#mk-q-box.gold-box {
+  border-color: rgba(245,158,11,0.7);
+  box-shadow: 0 0 60px rgba(245,158,11,0.3);
+}
+#mk-q-badge {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 3px;
+  color: #06C167; text-transform: uppercase; text-align: center;
+}
+#mk-q-box.gold-box #mk-q-badge { color: #f59e0b; }
+#mk-q-timer-wrap {
+  height: 5px; background: rgba(255,255,255,0.1); border-radius: 100px; overflow: hidden;
+}
+#mk-q-timer-fill {
+  height: 100%; border-radius: 100px; background: #06C167;
+  transition: width 0.1s linear;
+}
+#mk-q-box.gold-box #mk-q-timer-fill { background: #f59e0b; }
+#mk-q-text {
+  font-size: 1.05rem; font-weight: 700; color: #fff;
+  text-align: center; line-height: 1.45;
+}
+#mk-yn-row {
+  display: flex; gap: 12px;
+}
+.mk-yn-btn {
+  flex: 1; padding: 15px 8px; border-radius: 14px;
+  font-size: 1.1rem; font-weight: 900; cursor: pointer;
+  border: 2px solid transparent; transition: transform 0.1s, box-shadow 0.1s;
+  font-family: inherit;
+}
+.mk-yn-btn:active { transform: scale(0.95); }
+.mk-yes { background: #06C167; color: #000; }
+.mk-yes:hover { background: #05a356; }
+.mk-no  { background: #ef4444; color: #fff; }
+.mk-no:hover  { background: #dc2626; }
+.mk-yn-btn:disabled, .mk-mc-btn:disabled { opacity: 0.5; pointer-events: none; }
+#mk-mc-row { display: flex; flex-direction: column; gap: 8px; }
+.mk-mc-btn {
+  width: 100%; padding: 12px 14px; border-radius: 12px;
+  background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer; text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: inherit; line-height: 1.35;
+}
+.mk-mc-btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); }
+.mk-mc-btn.correct { background: rgba(6,193,103,0.25); border-color: #06C167; }
+.mk-mc-btn.wrong   { background: rgba(239,68,68,0.2); border-color: #ef4444; }
+#mk-q-feedback {
+  text-align: center; font-size: 0.85rem; font-weight: 700;
+  padding: 8px 12px; border-radius: 10px;
+}
+#mk-q-feedback.correct { background: rgba(6,193,103,0.15); color: #06C167; }
+#mk-q-feedback.wrong   { background: rgba(239,68,68,0.12); color: #ef4444; }
+
+/* Mobile controls (bottom) */
+#mk-controls {
+  position: absolute; bottom: 10px; left: 0; right: 0; z-index: 10;
+  display: flex; justify-content: space-between; padding: 0 16px; gap: 12px;
+  pointer-events: none;
+}
+.mk-ctrl-btn {
+  pointer-events: all;
+  width: 80px; height: 64px; border-radius: 16px;
+  background: rgba(0,0,0,0.55); border: 2px solid rgba(255,255,255,0.2);
+  color: #fff; font-size: 1.6rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  user-select: none; -webkit-user-select: none;
+  transition: background 0.1s, border-color 0.1s;
+}
+.mk-ctrl-btn:active, .mk-ctrl-btn.held {
+  background: rgba(6,193,103,0.3); border-color: #06C167;
 }
 
-/* Lives */
-.w3-lives { font-size: 0.82rem; letter-spacing: 2px; white-space: nowrap; }
-
-/* Hit flash overlay */
-.w3-hit-flash::after {
-  content: '';
-  position: absolute; inset: 0; pointer-events: none; z-index: 20;
-  background: rgba(239,68,68,0.28);
-  animation: w3Flash 0.35s ease forwards;
+/* Escape button */
+.mk-escape {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  z-index: 20; background: rgba(0,0,0,0.6); border: 1.5px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 0.75rem; padding: 6px 14px; border-radius: 100px;
+  cursor: pointer; font-family: inherit; font-weight: 700;
 }
-@keyframes w3Flash { 0%{opacity:1} 100%{opacity:0} }
-
-/* Hold-to-steer buttons */
-.w3-controls {
-  width: 100%; display: flex; align-items: center;
-  justify-content: space-between; gap: 12px; margin-top: 6px;
-}
-.w3-steer-btn {
-  flex: 1; padding: 16px; border-radius: var(--radius-lg);
-  background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12);
-  color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
-  transition: background 0.1s;
-  font-family: inherit; user-select: none; -webkit-user-select: none;
-}
-.w3-steer-btn:hover { background: rgba(255,255,255,0.13); }
-.w3-steer-btn.held  { background: rgba(0,200,255,0.2); border-color: rgba(0,200,255,0.55); }
 
 /* Complete */
+#mk-finish-trophy { font-size: 4rem; margin-bottom: 8px; }
 .w3-complete-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); margin-bottom: 22px; text-align: center; max-width: 360px; }
 
 /* ═══ GAUNTLET MAP CARD ════════════════════════════════════════════════════ */

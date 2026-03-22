@@ -4471,65 +4471,1137 @@ function completeGauntlet() {
   startConfetti(4000);
 }
 
-// ─── WORLD 3: OBJECTION DASH ──────────────────────────────────────────────────
+// ─── WORLD 3: SALES KART ──────────────────────────────────────────────────────
 
-const race = {
-  round: 0,
-  lives: 3,
-  score: 0,
-  streak: 0,
-  bestStreak: 0,
-  correct: 0,
-  wrong: 0,
-  carX: 50,         // % from left (center of car)
-  podSpeed: 20,     // % of road height per second
-  roadSpeed: 0.55,  // CSS animation seconds (lower = faster visual)
-  keys:  { left: false, right: false },
-  touch: { left: false, right: false },
-  pods: [],
-  animFrame: null,
-  lastTs: 0,
+// ── Question bank ──────────────────────────────────────────────────────────────
+const MK_YN = [
+  // Opener
+  { q: 'Should you state your name AND company in the first 5 seconds of a cold opener?', a: true },
+  { q: 'Is "Is now a bad time?" a strong way to open a cold call?', a: false },
+  { q: 'Should you walk in cold during the 12–2 pm lunch rush?', a: false },
+  { q: 'Is it okay to leave without securing any next step?', a: false },
+  { q: 'Can you ask to speak with the owner directly if a gatekeeper says they\'re busy?', a: true },
+  { q: 'Should you memorize a word-for-word script for your cold opener?', a: false },
+  { q: 'Is it good practice to research a restaurant before your first visit?', a: true },
+  // Objection Handling
+  { q: 'If a prospect says "DoorDash works fine," should you agree and leave?', a: false },
+  { q: 'Should you immediately offer a discount when someone says fees are too high?', a: false },
+  { q: 'Is it useful to validate part of an objection before responding?', a: true },
+  { q: 'Should you badmouth a competitor to win an objection?', a: false },
+  { q: 'Does "we have our own driver" mean delivery doesn\'t make sense for them?', a: false },
+  { q: 'Can you acknowledge that DoorDash and Uber Eats serve different customer segments?', a: true },
+  { q: 'Is it appropriate to ask "what would make this work for you?" when they object?', a: true },
+  // Pitch
+  { q: 'Should you lead your pitch by stating the commission percentage?', a: false },
+  { q: 'Is showing hyperlocal data about nearby Uber Eats users more persuasive than global stats?', a: true },
+  { q: 'Should you promise a specific revenue amount to a restaurant?', a: false },
+  { q: 'Is it worth mentioning that setup is free and fast during your pitch?', a: true },
+  { q: 'Is it okay to exaggerate market share data to close a deal?', a: false },
+  { q: 'Should you mention the Uber Eats dashboard and menu management tools?', a: true },
+  // Closing
+  { q: 'Should you directly ask "Can we get your menu set up today?" after a successful pitch?', a: true },
+  { q: 'Does "let me think about it" almost always mean a permanent no?', a: false },
+  { q: 'Is following up the next day too soon after a close attempt?', a: false },
+  { q: 'Should you let the prospect pick the signup date when possible?', a: true },
+  { q: 'Is it okay to suggest starting with a limited menu to reduce their risk?', a: true },
+  { q: 'Should you keep talking to fill silence after asking for the sale?', a: false },
+  // Follow-up
+  { q: 'Is it acceptable to follow up more than once after no response?', a: true },
+  { q: 'Should every follow-up email repeat your entire pitch from scratch?', a: false },
+  { q: 'If a prospect asks you to stop contacting them, should you stop immediately?', a: true },
+  { q: 'Should you reference your last conversation when following up?', a: true },
+  { q: 'Is "just checking in" a strong follow-up opener?', a: false },
+  { q: 'Can a referral from an existing partner help warm a cold prospect?', a: true },
+  { q: 'Does a "no" today mean a "no" forever?', a: false },
+  { q: 'Is voicemail a valid follow-up method?', a: true },
+  { q: 'Should you apologize for following up when re-engaging a cold lead?', a: false },
+  { q: 'Is confirming next steps via text or email after a meeting good practice?', a: true },
+  { q: 'Should you customize your pitch for each type of restaurant?', a: true },
+  { q: 'Is "we\'re too small" a legitimate reason a restaurant can\'t join Uber Eats?', a: false },
+  { q: 'Is it useful to ask for the owner\'s email before ending any cold interaction?', a: true },
+  { q: 'Should you keep a CRM record of every prospect touchpoint?', a: true },
+];
+
+const MK_GOLD = [
+  {
+    q: 'An owner says "commission fees are too high." What\'s the best response?',
+    choices: [
+      'Tell them DoorDash charges more',
+      'Acknowledge their margin concern, then show incremental new-customer revenue math',
+      'Offer to waive the fee immediately',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Mid-pitch, the owner says "I\'m too busy for this right now." Best move?',
+    choices: [
+      'Speed through the rest of your pitch',
+      'Acknowledge their time — ask for 2 more minutes or schedule a specific return visit',
+      'Leave your card and never follow up',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner says "we tried delivery before — orders were wrong and quality suffered." Best response?',
+    choices: [
+      'Blame their previous delivery platform',
+      'Validate the experience, then explain how the tablet integration and packaging guidance prevents it',
+      'Promise it won\'t happen with Uber Eats',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Prospect is almost ready to sign but says "let me run it by my partner." Best move?',
+    choices: [
+      'Tell them not to wait — sign today',
+      'Ask when they\'ll speak to their partner and schedule a follow-up for that exact time',
+      'Send the contract and wait indefinitely',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'After a strong pitch with no objections the owner goes quiet. Best move?',
+    choices: [
+      'Keep talking to fill the silence',
+      'Ask directly: "Does this feel like the right fit for you?"',
+      'Give them a brochure and leave',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner says "we\'re always full — we don\'t need more customers." Best frame?',
+    choices: [
+      'Tell them they\'re leaving money on the table',
+      'Reframe: delivery captures revenue during hours you\'re closed or below full capacity',
+      'Agree and move on',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Which is the strongest cold walk-in opener?',
+    choices: [
+      '"Hi, we\'re running great Uber Eats deals right now"',
+      '"Hi, I\'m [name] with Uber Eats — I\'m working with 3 restaurants nearby. Could I grab 5 minutes with the owner?"',
+      '"Who\'s in charge? I need to talk about delivery."',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'A prospect hasn\'t responded to two calls and an email. Best follow-up strategy?',
+    choices: [
+      'Send a final email saying "I\'ll take this as a no"',
+      'Try a different channel with a new angle — perhaps new local data or a nearby restaurant success story',
+      'Call every day until they answer',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner says "my customers are regulars who come in person — I don\'t need an app." Best counter?',
+    choices: [
+      '"Apps are the future — you need to adapt"',
+      '"Your regulars are covered. Delivery finds people who don\'t know you yet"',
+      '"Most restaurants use apps now — you\'re behind"',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Which data point is most persuasive in a cold pitch?',
+    choices: [
+      'Total global Uber Eats order volume',
+      'Number of active Uber Eats users within 3 miles of their restaurant',
+      'How many years Uber Eats has been in business',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner says "I take orders direct — I keep 100%, why share with Uber Eats?" Best counter?',
+    choices: [
+      'Explain that Uber Eats is cheaper than running a website',
+      'Direct orders come from people who already know them. Uber Eats brings customers who\'ve never heard of them',
+      'Tell them the commission rate is actually low',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'What\'s the strongest follow-up email subject line after no response?',
+    choices: [
+      '"Following up on my last email"',
+      '"[X] people searched for food near your restaurant last week"',
+      '"Just checking in!"',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner wants to sign but says "can we start with just lunch hours?" Best response?',
+    choices: [
+      'Say no — it has to be full hours',
+      'Yes — starting with lunch is a great way to test the system with low risk',
+      'Tell them they\'ll earn more with full hours right away',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'Owner mentions a competitor\'s lower fee. Best technique?',
+    choices: [
+      'Promise to match the competitor\'s fee',
+      'Shift focus to total value: customer reach, marketing tools, and incremental revenue',
+      'Explain why the competitor\'s platform is worse',
+    ],
+    correct: 1,
+  },
+  {
+    q: 'After signing a new partner, what\'s the most important next action?',
+    choices: [
+      'Celebrate and move on to new prospects',
+      'Check in within 48 hours — confirm setup, first order, and answer any questions',
+      'Send a welcome email and wait 30 days',
+    ],
+    correct: 1,
+  },
+];
+
+// ── Audio (Web Audio API) ──────────────────────────────────────────────────────
+let mkAudioCtx = null;
+
+function mkAudio() {
+  if (!mkAudioCtx) mkAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return mkAudioCtx;
+}
+
+function mkResume() { if (mkAudioCtx && mkAudioCtx.state === 'suspended') mkAudioCtx.resume(); }
+
+function mkBeep(freq, dur, type = 'sine', vol = 0.4, delay = 0) {
+  try {
+    const ctx = mkAudio(); mkResume();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type; osc.frequency.value = freq;
+    const t = ctx.currentTime + delay;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+
+function mkNoise(dur, vol = 0.3, delay = 0) {
+  try {
+    const ctx = mkAudio(); mkResume();
+    const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    const src = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    const filt = ctx.createBiquadFilter();
+    src.buffer = buf; filt.type = 'bandpass'; filt.frequency.value = 1200;
+    src.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
+    const t = ctx.currentTime + delay;
+    gain.gain.setValueAtTime(vol, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    src.start(t); src.stop(t + dur + 0.05);
+  } catch(e) {}
+}
+
+function sndCountdown(n) {
+  const freqs = [330, 392, 494, 660];
+  mkBeep(freqs[Math.min(n, 3)], 0.18, 'sine', 0.5);
+}
+
+function sndGo() {
+  [523, 659, 784, 1047].forEach((f, i) => mkBeep(f, 0.15, 'sine', 0.5, i * 0.06));
+}
+
+function sndBoxHit() {
+  mkBeep(880, 0.12, 'sine', 0.35);
+  mkBeep(1100, 0.1, 'sine', 0.2, 0.08);
+}
+
+function sndGoldBoxHit() {
+  [880, 1100, 1320, 1760].forEach((f, i) => mkBeep(f, 0.12, 'sine', 0.3, i * 0.06));
+}
+
+function sndCorrect() {
+  mkBeep(523, 0.08, 'sine', 0.3);
+  mkBeep(659, 0.08, 'sine', 0.3, 0.09);
+  mkBeep(784, 0.2, 'sine', 0.4, 0.18);
+  mkNoise(0.15, 0.2, 0.18);
+}
+
+function sndWrong() {
+  mkBeep(220, 0.08, 'sawtooth', 0.4);
+  mkBeep(180, 0.12, 'sawtooth', 0.4, 0.1);
+  mkBeep(140, 0.2, 'sawtooth', 0.3, 0.2);
+}
+
+function sndSpinOut() {
+  try {
+    const ctx = mkAudio(); mkResume();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sawtooth';
+    const t = ctx.currentTime;
+    osc.frequency.setValueAtTime(600, t);
+    osc.frequency.exponentialRampToValueAtTime(80, t + 0.6);
+    gain.gain.setValueAtTime(0.5, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.65);
+    osc.start(t); osc.stop(t + 0.7);
+    mkNoise(0.4, 0.3);
+  } catch(e) {}
+}
+
+function sndBoost() {
+  try {
+    const ctx = mkAudio(); mkResume();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sawtooth';
+    const t = ctx.currentTime;
+    osc.frequency.setValueAtTime(200, t);
+    osc.frequency.exponentialRampToValueAtTime(800, t + 0.3);
+    gain.gain.setValueAtTime(0.3, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+    osc.start(t); osc.stop(t + 0.4);
+  } catch(e) {}
+}
+
+function sndVictory() {
+  const melody = [523,659,784,1047,784,1047,1319];
+  melody.forEach((f, i) => mkBeep(f, 0.25, 'sine', 0.4, i * 0.13));
+  mkNoise(0.5, 0.35, 0.8);
+}
+
+function sndSadTrombone() {
+  [311, 277, 247, 220].forEach((f, i) => mkBeep(f, 0.3, 'sawtooth', 0.35, i * 0.22));
+}
+
+// ── Engine loop sound ─────────────────────────────────────────────────────────
+let mkEngineOsc = null, mkEngineGain = null;
+
+function startEngine() {
+  try {
+    const ctx = mkAudio(); mkResume();
+    mkEngineOsc = ctx.createOscillator();
+    mkEngineGain = ctx.createGain();
+    mkEngineOsc.connect(mkEngineGain);
+    mkEngineGain.connect(ctx.destination);
+    mkEngineOsc.type = 'sawtooth';
+    mkEngineOsc.frequency.value = 90;
+    mkEngineGain.gain.value = 0.05;
+    mkEngineOsc.start();
+  } catch(e) {}
+}
+
+function updateEngine(speed, boosting) {
+  if (!mkEngineOsc) return;
+  try {
+    const baseFreq = 80 + speed * 0.4;
+    const freq = boosting ? baseFreq * 1.6 : baseFreq;
+    const vol = boosting ? 0.09 : 0.04;
+    mkEngineOsc.frequency.setTargetAtTime(freq, mkAudioCtx.currentTime, 0.1);
+    mkEngineGain.gain.setTargetAtTime(vol, mkAudioCtx.currentTime, 0.1);
+  } catch(e) {}
+}
+
+function stopEngine() {
+  try {
+    if (mkEngineGain) mkEngineGain.gain.setTargetAtTime(0, mkAudioCtx.currentTime, 0.1);
+    setTimeout(() => { try { mkEngineOsc?.stop(); } catch(e){} mkEngineOsc = null; mkEngineGain = null; }, 300);
+  } catch(e) {}
+}
+
+// Background music loop
+let mkBgNodes = [];
+function startBgMusic() {
+  stopBgMusic();
+  const notes = [261,329,392,329,349,440,392,523,392,329,261,329];
+  notes.forEach((f, i) => {
+    const id = setInterval(() => {
+      if (!mk.running) return;
+      mkBeep(f, 0.18, 'triangle', mk.position === 1 ? 0.08 : 0.05);
+    }, notes.length * 280);
+    mkBgNodes.push(id);
+    setTimeout(() => mkBeep(f, 0.18, 'triangle', mk.position === 1 ? 0.08 : 0.05), i * 280);
+  });
+  const loopId = setInterval(() => {
+    if (!mk.running) { clearInterval(loopId); return; }
+    notes.forEach((f, i) => setTimeout(() => {
+      if (!mk.running) return;
+      mkBeep(f, 0.18, 'triangle', mk.position === 1 ? 0.08 : 0.05);
+    }, i * 280));
+  }, notes.length * 280);
+  mkBgNodes.push(loopId);
+}
+function stopBgMusic() {
+  mkBgNodes.forEach(id => clearInterval(id));
+  mkBgNodes = [];
+}
+
+// ── Game state ─────────────────────────────────────────────────────────────────
+const mk = {
   running: false,
-  roundActive: false,
-  stunUntil: 0,
-  scenarios: [],
+  paused: false,
+  // Player
+  lane: 1, targetLane: 1, laneX: 0.5, // 0–1 across road
+  speed: 180,     // px/s forward speed (normalized to track distance)
+  distance: 0,    // track distance covered
+  totalDist: 2000,
+  // Powerups / penalties
+  boosting: false, boostUntil: 0,
+  shield: false,
+  doublePoints: false, doubleUntil: 0,
+  slowUntil: 0,
+  spinning: false, spinUntil: 0, spinAngle: 0,
+  // Stats
+  lives: 3, score: 0, streak: 0, bestStreak: 0, correct: 0, wrong: 0, boxesHit: 0,
+  // Objects
+  boxes: [],    // { z:0-1, lane:0-2, gold:bool, hit:bool }
+  boostPads: [],// { z:0-1, lane:0-2, hit:bool }
+  smoke: [],    // particles
+  // Opponents
+  opponents: [
+    { name:'Rex',  color:'#ef4444', emoji:'🚗', lane:0, distance:0, speed:168 },
+    { name:'Zara', color:'#8b5cf6', emoji:'🚙', lane:2, distance:0, speed:172 },
+    { name:'Kai',  color:'#f59e0b', emoji:'🚕', lane:1, distance:0, speed:165 },
+  ],
+  position: 1,
+  // Road scroll
+  roadOffset: 0,
+  // Question
+  questionActive: false, currentBox: null, qTimeLeft: 10, qTimer: null, qMaxTime: 10,
+  qQuestions: [],
+  // Keys
+  keys: { left: false, right: false },
+  touch: { left: false, right: false },
+  // Animation
+  lastTs: 0, animFrame: null,
+  // Canvas
+  canvas: null, ctx: null,
+  mmCanvas: null, mmCtx: null,
+  // Spawn
+  nextBoxDist: 200, nextPadDist: 400,
 };
 
-// Collision box dimensions (% of road)
-const R_CAR_W  = 9;   // car half-width each side
-const R_POD_W  = 30;  // pod width %
-const R_POD_H  = 16;  // pod height % (approximate)
-const R_CAR_BOT = 88; // car bottom edge %
-const R_CAR_TOP = 76; // car top edge %
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function mkProject(z, laneIdx) {
+  // z: 0=horizon, 1=near player
+  const c = mk.canvas, w = c.width, h = c.height;
+  const horizY = h * 0.40;
+  const screenY = horizY + (h - horizY) * z;
+  const roadHalfW = w * 0.5 * (0.14 + 0.86 * z);
+  const cx = w * 0.5;
+  const t = (laneIdx + 0.5) / 3;
+  const screenX = cx - roadHalfW + t * roadHalfW * 2;
+  const scale = 0.05 + 0.95 * z;
+  return { x: screenX, y: screenY, scale };
+}
 
-function buildRaceScenarios() {
-  return shuffleArray(Object.values(SCENARIOS).map(s => {
-    const wrongs = s.responses.filter(r => !r.correct);
+function mkLaneXFrac(laneIdx, z) {
+  const w = mk.canvas.width;
+  const roadHalfW = w * 0.5 * (0.14 + 0.86 * z);
+  const cx = w * 0.5;
+  const t = (laneIdx + 0.5) / 3;
+  return cx - roadHalfW + t * roadHalfW * 2;
+}
+
+function mkCurrentSpeed() {
+  if (mk.spinning) return 0;
+  const now = performance.now();
+  let spd = mk.speed;
+  if (mk.boosting && now < mk.boostUntil) spd = mk.speed * 2.0;
+  else if (now < mk.slowUntil) spd = mk.speed * 0.4;
+  return spd;
+}
+
+function mkCalcPosition() {
+  const playerD = mk.distance;
+  const ahead = mk.opponents.filter(o => o.distance > playerD).length;
+  mk.position = ahead + 1;
+}
+
+function mkShowPowerupBanner(text) {
+  const el = document.getElementById('mk-powerup-banner');
+  el.textContent = text;
+  el.classList.remove('mk-hidden');
+  setTimeout(() => el.classList.add('mk-hidden'), 2200);
+}
+
+// ── Drawing ────────────────────────────────────────────────────────────────────
+function mkDraw(ts) {
+  const c = mk.canvas, ctx = mk.ctx;
+  const w = c.width, h = c.height;
+  const horizY = h * 0.40;
+
+  // Sky gradient
+  const sky = ctx.createLinearGradient(0, 0, 0, horizY);
+  sky.addColorStop(0, '#0a1a3a');
+  sky.addColorStop(1, '#1a3a2a');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, w, horizY);
+
+  // Crowd (colorful blobs along sides at horizon)
+  mkDrawCrowd(ctx, w, horizY);
+
+  // Grass (sides of road)
+  ctx.fillStyle = '#0d4a1a';
+  ctx.fillRect(0, horizY, w, h - horizY);
+
+  // Curb stripes
+  mkDrawCurbs(ctx, w, h, horizY);
+
+  // Road trapezoid
+  // Road trapezoid: narrow at horizon (z=0), full width at player (z=1)
+  const r0L = w * 0.5 - w * 0.5 * 0.14; // horizon left
+  const r0R = w * 0.5 + w * 0.5 * 0.14;
+  const r1L = 0;  // bottom left
+  const r1R = w;  // bottom right
+  ctx.fillStyle = '#2a2a2a';
+  ctx.beginPath();
+  ctx.moveTo(r0L, horizY); ctx.lineTo(r0R, horizY);
+  ctx.lineTo(r1R, h);      ctx.lineTo(r1L, h);
+  ctx.closePath(); ctx.fill();
+
+  // Road lane lines + scroll animation
+  mkDrawLaneLines(ctx, w, h, horizY, ts);
+
+  // Boost pads
+  mk.boostPads.forEach(pad => mkDrawBoostPad(ctx, pad));
+
+  // Mystery boxes
+  mk.boxes.forEach(box => mkDrawBox(ctx, box, ts));
+
+  // Opponent cars
+  const oppsToSort = [...mk.opponents];
+  oppsToSort.sort((a, b) => (mk.distance - a.distance) - (mk.distance - b.distance));
+  oppsToSort.forEach(opp => mkDrawOpponent(ctx, opp));
+
+  // Player car
+  mkDrawPlayerCar(ctx, w, h);
+
+  // Speed blur
+  if (mk.boosting && performance.now() < mk.boostUntil) {
+    const blur = ctx.createLinearGradient(0, h * 0.5, 0, h);
+    blur.addColorStop(0, 'rgba(6,193,103,0)');
+    blur.addColorStop(1, 'rgba(6,193,103,0.08)');
+    ctx.fillStyle = blur;
+    ctx.fillRect(0, h * 0.5, w, h * 0.5);
+  }
+
+  // Smoke particles
+  mkDrawSmoke(ctx);
+
+  // Mini-map
+  mkDrawMinimap();
+
+  // HUD update
+  mkUpdateHUD();
+}
+
+function mkDrawCrowd(ctx, w, horizY) {
+  const colors = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#f7a072','#c77dff'];
+  ctx.save();
+  // left crowd
+  for (let i = 0; i < 18; i++) {
+    const rx = (i / 18) * w * 0.28 + 2;
+    const ry = horizY - 18 + (i % 3) * 6;
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.beginPath();
+    ctx.ellipse(rx, ry, 7, 9, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // arms waving
+    const wave = Math.sin(performance.now() / 300 + i) * 0.3;
+    ctx.fillStyle = colors[(i + 2) % colors.length];
+    ctx.beginPath();
+    ctx.ellipse(rx, ry - 9, 4, 5, wave, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // right crowd
+  for (let i = 0; i < 18; i++) {
+    const rx = w - (i / 18) * w * 0.28 - 2;
+    const ry = horizY - 18 + (i % 3) * 6;
+    ctx.fillStyle = colors[(i + 3) % colors.length];
+    ctx.beginPath();
+    ctx.ellipse(rx, ry, 7, 9, 0, 0, Math.PI * 2);
+    ctx.fill();
+    const wave = Math.sin(performance.now() / 300 + i + 5) * 0.3;
+    ctx.fillStyle = colors[(i + 1) % colors.length];
+    ctx.beginPath();
+    ctx.ellipse(rx, ry - 9, 4, 5, -wave, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function mkDrawCurbs(ctx, w, h, horizY) {
+  // Perspective curb stripes on road edges
+  const stripeCount = 12;
+  for (let i = 0; i < stripeCount; i++) {
+    const z = ((i + (mk.roadOffset * 0.003 % 1)) / stripeCount);
+    const rHW = w * 0.5 * (0.14 + 0.86 * z);
+    const y = horizY + (h - horizY) * z;
+    const z2 = ((i + 1 + (mk.roadOffset * 0.003 % 1)) / stripeCount);
+    const rHW2 = w * 0.5 * (0.14 + 0.86 * z2);
+    const y2 = horizY + (h - horizY) * z2;
+    const curbW = (rHW - rHW2) * 0.3 + 4;
+    const col = i % 2 === 0 ? '#e63946' : '#ffffff';
+    ctx.fillStyle = col;
+    // left curb
+    ctx.beginPath();
+    ctx.moveTo(w * 0.5 - rHW, y);
+    ctx.lineTo(w * 0.5 - rHW + curbW, y);
+    ctx.lineTo(w * 0.5 - rHW2 + curbW, y2);
+    ctx.lineTo(w * 0.5 - rHW2, y2);
+    ctx.fill();
+    // right curb
+    ctx.beginPath();
+    ctx.moveTo(w * 0.5 + rHW - curbW, y);
+    ctx.lineTo(w * 0.5 + rHW, y);
+    ctx.lineTo(w * 0.5 + rHW2, y2);
+    ctx.lineTo(w * 0.5 + rHW2 - curbW, y2);
+    ctx.fill();
+  }
+}
+
+function mkDrawLaneLines(ctx, _w, h, horizY) {
+  ctx.save();
+  ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+  ctx.setLineDash([20, 28]);
+  ctx.lineDashOffset = -(mk.roadOffset * 2 % 48);
+  // 2 lane dividers
+  [1, 2].forEach(d => {
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    const xH = mkLaneXFrac(d - 0.5, 0.02);
+    const xB = mkLaneXFrac(d - 0.5, 1);
+    ctx.moveTo(xH, horizY);
+    ctx.lineTo(xB, h);
+    ctx.stroke();
+  });
+  ctx.restore();
+}
+
+function mkDrawBoostPad(ctx, pad) {
+  if (pad.hit) return;
+  const p = mkProject(pad.z, pad.lane);
+  const bw = 60 * p.scale;
+  const bh = 18 * p.scale;
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  // Green chevron
+  ctx.fillStyle = 'rgba(6,193,103,0.6)';
+  ctx.strokeStyle = '#06C167';
+  ctx.lineWidth = 2 * p.scale;
+  ctx.beginPath();
+  ctx.moveTo(-bw * 0.5, bh * 0.5);
+  ctx.lineTo(0, -bh * 0.5);
+  ctx.lineTo(bw * 0.5, bh * 0.5);
+  ctx.lineTo(bw * 0.3, bh * 0.5);
+  ctx.lineTo(0, -bh * 0.1);
+  ctx.lineTo(-bw * 0.3, bh * 0.5);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  ctx.restore();
+}
+
+function mkDrawBox(ctx, box, ts) {
+  if (box.hit) return;
+  const p = mkProject(box.z, box.lane);
+  const size = 34 * p.scale;
+  const spin = (ts * 0.003) % (Math.PI * 2);
+  const scaleX = Math.abs(Math.cos(spin)) * 0.4 + 0.6;
+
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.scale(scaleX, 1);
+
+  if (box.gold) {
+    // Gold glow
+    const grd = ctx.createRadialGradient(0, 0, size * 0.1, 0, 0, size * 1.2);
+    grd.addColorStop(0, 'rgba(255,215,0,0.4)');
+    grd.addColorStop(1, 'rgba(255,215,0,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(-size * 1.2, -size * 1.2, size * 2.4, size * 2.4);
+
+    ctx.fillStyle = '#ffd700';
+    ctx.strokeStyle = '#ff9500';
+  } else {
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#06C167';
+  }
+  ctx.lineWidth = 2.5 * p.scale;
+
+  // Box body
+  const s = size * 0.8;
+  ctx.fillRect(-s, -s, s * 2, s * 2);
+  ctx.strokeRect(-s, -s, s * 2, s * 2);
+
+  // "?" mark
+  ctx.fillStyle = box.gold ? '#000' : '#06C167';
+  ctx.font = `bold ${size * 0.9}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('?', 0, 0);
+
+  ctx.restore();
+}
+
+function mkDrawOpponent(ctx, opp) {
+  const relDist = mk.distance - opp.distance; // positive = opponent behind player
+  if (relDist < -200 || relDist > 800) return; // too far
+  // Convert relative distance to z (0=horizon, 1=near)
+  let z = 1 - (relDist + 50) / 850;
+  z = Math.max(0.04, Math.min(0.96, z));
+  const p = mkProject(z, opp.lane);
+  const size = 26 * p.scale;
+
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.font = `${size * 1.8}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(opp.emoji, 0, 0);
+  ctx.restore();
+}
+
+function mkDrawPlayerCar(ctx, w, h) {
+  const carX = w * 0.5 + (mk.laneX - 0.5) * w * 0.8;
+  const carY = h * 0.82;
+  const isSpinning = mk.spinning && performance.now() < mk.spinUntil;
+
+  ctx.save();
+  ctx.translate(carX, carY);
+  if (isSpinning) {
+    mk.spinAngle += 0.18;
+    ctx.rotate(mk.spinAngle);
+  }
+  ctx.font = '48px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  if (mk.boosting && performance.now() < mk.boostUntil) {
+    ctx.shadowColor = '#06C167';
+    ctx.shadowBlur = 30;
+  }
+  ctx.fillText('🏎️', 0, 0);
+  ctx.restore();
+}
+
+function mkDrawSmoke(ctx) {
+  mk.smoke = mk.smoke.filter(p => p.life > 0);
+  mk.smoke.forEach(p => {
+    ctx.save();
+    ctx.globalAlpha = p.life / p.maxLife * 0.6;
+    ctx.fillStyle = '#aaa';
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    p.x += p.vx; p.y += p.vy; p.r += 0.4; p.life--;
+  });
+}
+
+function mkSpawnSmoke() {
+  const c = mk.canvas;
+  const carX = c.width * 0.5 + (mk.laneX - 0.5) * c.width * 0.8;
+  const carY = c.height * 0.82;
+  for (let i = 0; i < 12; i++) {
+    mk.smoke.push({
+      x: carX + (Math.random() - 0.5) * 40,
+      y: carY + (Math.random() - 0.5) * 20,
+      vx: (Math.random() - 0.5) * 3,
+      vy: -Math.random() * 2 - 0.5,
+      r: 6 + Math.random() * 6,
+      life: 30 + Math.random() * 20,
+      maxLife: 50,
+    });
+  }
+}
+
+function mkDrawMinimap() {
+  const mc = mk.mmCanvas, mctx = mk.mmCtx;
+  const mw = mc.width, mh = mc.height;
+  mctx.clearRect(0, 0, mw, mh);
+
+  // Track oval
+  mctx.strokeStyle = 'rgba(255,255,255,0.3)';
+  mctx.lineWidth = 6;
+  mctx.beginPath();
+  mctx.ellipse(mw / 2, mh / 2, mw * 0.44, mh * 0.38, 0, 0, Math.PI * 2);
+  mctx.stroke();
+
+  // Helper: convert race distance + lane to minimap x,y (on oval)
+  function distToMM(dist, lane, totalDist) {
+    const angle = (dist / totalDist) * Math.PI * 2 - Math.PI * 0.5;
+    const laneOffset = (lane - 1) * 4;
     return {
-      objection: s.objection,
-      correct:   s.responses.find(r => r.correct).text,
-      wrongs: [
-        wrongs[0]?.text || 'Not the right approach here.',
-        wrongs[1]?.text || wrongs[0]?.text || 'Try a different angle.',
-      ],
+      x: mw / 2 + Math.cos(angle) * (mw * 0.44 + laneOffset),
+      y: mh / 2 + Math.sin(angle) * (mh * 0.38 + laneOffset),
     };
-  }));
+  }
+
+  // Opponents
+  mk.opponents.forEach(opp => {
+    const pos = distToMM(opp.distance % mk.totalDist, opp.lane, mk.totalDist);
+    mctx.fillStyle = opp.color;
+    mctx.beginPath();
+    mctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
+    mctx.fill();
+  });
+
+  // Player
+  const ppos = distToMM(mk.distance % mk.totalDist, mk.targetLane, mk.totalDist);
+  mctx.fillStyle = '#06C167';
+  mctx.beginPath();
+  mctx.arc(ppos.x, ppos.y, 5, 0, Math.PI * 2);
+  mctx.fill();
 }
 
-function truncatePod(t, n = 52) {
-  return t.length > n ? t.slice(0, n).trimEnd() + '…' : t;
+function mkUpdateHUD() {
+  const posBadge = document.getElementById('mk-pos-badge');
+  const posLabels = ['1st','2nd','3rd','4th'];
+  posBadge.textContent = posLabels[mk.position - 1] || '4th';
+  posBadge.className = '';
+  if (mk.position === 2) posBadge.className = 'pos-2nd';
+  else if (mk.position === 3) posBadge.className = 'pos-3rd';
+  else if (mk.position === 4) posBadge.className = 'pos-4th';
+
+  document.getElementById('mk-score-hud').textContent = mk.score;
+  document.getElementById('mk-streak-hud').textContent = `🔥 ${mk.streak}`;
+  document.getElementById('mk-lives-hud').textContent =
+    '❤️'.repeat(mk.lives) + '🖤'.repeat(Math.max(0, 3 - mk.lives));
+  document.getElementById('mk-progress-fill').style.width =
+    Math.min(100, (mk.distance / mk.totalDist) * 100) + '%';
 }
 
+// ── Collision detection ────────────────────────────────────────────────────────
+function mkCheckCollisions() {
+  if (mk.questionActive || mk.spinning) return;
+  const now = performance.now();
+
+  // Boost pads
+  mk.boostPads.forEach(pad => {
+    if (pad.hit) return;
+    if (Math.abs(pad.z - 0.92) < 0.05 && pad.lane === mk.targetLane) {
+      pad.hit = true;
+      mk.boosting = true;
+      mk.boostUntil = now + 2500;
+      sndBoost();
+      updateEngine(mk.speed, true);
+      mkShowPowerupBanner('⚡ BOOST PAD!');
+    }
+  });
+
+  // Mystery boxes
+  mk.boxes.forEach(box => {
+    if (box.hit) return;
+    if (Math.abs(box.z - 0.90) < 0.06 && box.lane === mk.targetLane) {
+      box.hit = true;
+      if (box.gold) sndGoldBoxHit();
+      else sndBoxHit();
+      mkTriggerQuestion(box);
+    }
+  });
+}
+
+// ── Question system ────────────────────────────────────────────────────────────
+function mkTriggerQuestion(box) {
+  mk.questionActive = true;
+  mk.currentBox = box;
+  clearInterval(mk.qTimer);
+
+  const isGold = box.gold;
+  const overlay = document.getElementById('mk-q-overlay');
+  const qBox = document.getElementById('mk-q-box');
+  const badge = document.getElementById('mk-q-badge');
+  const ynRow = document.getElementById('mk-yn-row');
+  const mcRow = document.getElementById('mk-mc-row');
+  const feedback = document.getElementById('mk-q-feedback');
+
+  overlay.classList.remove('mk-hidden');
+  feedback.classList.add('mk-hidden');
+  feedback.className = 'mk-hidden';
+
+  if (isGold) {
+    qBox.classList.add('gold-box');
+    badge.textContent = '⭐ GOLD BOX — 3× POINTS';
+    ynRow.classList.add('mk-hidden');
+    mcRow.classList.remove('mk-hidden');
+
+    const q = shuffleIntoBank(MK_GOLD, mk.qQuestions, 'gold');
+    document.getElementById('mk-q-text').textContent = q.q;
+    const btns = document.querySelectorAll('.mk-mc-btn');
+    btns.forEach((btn, i) => {
+      btn.textContent = q.choices[i];
+      btn.className = 'mk-mc-btn';
+      btn.disabled = false;
+      btn.onclick = () => mkAnswerMC(btn, i, q.correct, isGold);
+    });
+    mk.qMaxTime = 15;
+  } else {
+    qBox.classList.remove('gold-box');
+    badge.textContent = '❓ MYSTERY BOX';
+    ynRow.classList.remove('mk-hidden');
+    mcRow.classList.add('mk-hidden');
+
+    const q = shuffleIntoBank(MK_YN, mk.qQuestions, 'yn');
+    document.getElementById('mk-q-text').textContent = q.q;
+    document.getElementById('mk-btn-yes').disabled = false;
+    document.getElementById('mk-btn-no').disabled  = false;
+    document.getElementById('mk-btn-yes').onclick = () => mkAnswerYN(true,  q.a, isGold);
+    document.getElementById('mk-btn-no').onclick  = () => mkAnswerYN(false, q.a, isGold);
+    mk.qMaxTime = 10;
+  }
+
+  mk.qTimeLeft = mk.qMaxTime;
+  mkStartQTimer();
+}
+
+function shuffleIntoBank(bank, used, key) {
+  const available = bank.filter(q => !used.find(u => u === q));
+  if (available.length === 0) { mk.qQuestions = []; return shuffleIntoBank(bank, [], key); }
+  const q = available[Math.floor(Math.random() * available.length)];
+  used.push(q);
+  return q;
+}
+
+function mkStartQTimer() {
+  const fill = document.getElementById('mk-q-timer-fill');
+  fill.style.width = '100%';
+  fill.style.transition = 'none';
+  clearInterval(mk.qTimer);
+  mk.qTimer = setInterval(() => {
+    mk.qTimeLeft -= 0.1;
+    fill.style.transition = 'width 0.1s linear';
+    fill.style.width = Math.max(0, (mk.qTimeLeft / mk.qMaxTime) * 100) + '%';
+    if (mk.qTimeLeft <= 0) {
+      clearInterval(mk.qTimer);
+      mkHandleTimeout();
+    }
+  }, 100);
+}
+
+function mkHandleTimeout() {
+  sndWrong();
+  mkShowFeedback('⏱ Too slow! Penalty.', false, true);
+}
+
+function mkAnswerYN(given, correct, isGold) {
+  clearInterval(mk.qTimer);
+  document.getElementById('mk-btn-yes').disabled = true;
+  document.getElementById('mk-btn-no').disabled  = true;
+  const right = given === correct;
+  const bonus = Math.ceil(mk.qTimeLeft / mk.qMaxTime * 50);
+  mkHandleAnswer(right, isGold, bonus);
+}
+
+function mkAnswerMC(btn, idx, correctIdx, isGold) {
+  clearInterval(mk.qTimer);
+  document.querySelectorAll('.mk-mc-btn').forEach(b => b.disabled = true);
+  const right = idx === correctIdx;
+  btn.classList.add(right ? 'correct' : 'wrong');
+  if (!right) document.querySelectorAll('.mk-mc-btn')[correctIdx].classList.add('correct');
+  const bonus = Math.ceil(mk.qTimeLeft / mk.qMaxTime * 80);
+  mkHandleAnswer(right, isGold, bonus);
+}
+
+function mkHandleAnswer(correct, isGold, timeBonus) {
+  if (correct) {
+    const pts = (isGold ? 300 : 100) + timeBonus;
+    const mult = mk.doublePoints && performance.now() < mk.doubleUntil ? 2 : 1;
+    mk.score += pts * mult;
+    mk.streak++;
+    mk.bestStreak = Math.max(mk.bestStreak, mk.streak);
+    mk.correct++;
+    sndCorrect();
+    mkApplyPowerup(isGold);
+    mkShowFeedback(`✓ Correct! +${pts * mult} pts`, true, false);
+  } else {
+    mk.streak = 0;
+    mk.wrong++;
+    sndWrong();
+    setTimeout(() => {
+      sndSpinOut();
+      mkApplyPenalty(isGold);
+    }, 300);
+    mkShowFeedback(isGold ? '✗ Wrong! Big spin-out!' : '✗ Wrong! Spin-out!', false, false);
+  }
+}
+
+function mkShowFeedback(text, correct, timeout) {
+  const fb = document.getElementById('mk-q-feedback');
+  fb.textContent = text;
+  fb.className = correct ? 'correct' : 'wrong';
+  fb.classList.remove('mk-hidden');
+  setTimeout(() => mkCloseQuestion(), timeout ? 600 : 1000);
+}
+
+function mkCloseQuestion() {
+  document.getElementById('mk-q-overlay').classList.add('mk-hidden');
+  mk.questionActive = false;
+  mk.currentBox = null;
+}
+
+function mkApplyPowerup(isGold) {
+  const now = performance.now();
+  const opts = isGold
+    ? ['boost','boost','double','shield']
+    : ['boost','slow_opp','shield','double'];
+  const pick = opts[Math.floor(Math.random() * opts.length)];
+  if (pick === 'boost') {
+    mk.boosting = true;
+    mk.boostUntil = now + (isGold ? 4000 : 2500);
+    sndBoost();
+    mkShowPowerupBanner('⚡ SPEED BOOST!');
+  } else if (pick === 'double') {
+    mk.doublePoints = true;
+    mk.doubleUntil = now + 15000;
+    mkShowPowerupBanner('✕2 DOUBLE POINTS — 15s');
+  } else if (pick === 'shield') {
+    mk.shield = true;
+    mkShowPowerupBanner('🛡 SHIELD ACTIVE');
+  } else if (pick === 'slow_opp') {
+    mk.opponents.forEach(o => o.speed = Math.max(60, o.speed * 0.6));
+    setTimeout(() => mk.opponents.forEach(o => o.speed = 160 + Math.random() * 20), 4000);
+    mkShowPowerupBanner('🐢 OPPONENTS SLOWED!');
+  }
+}
+
+function mkApplyPenalty(isGold) {
+  if (mk.shield) {
+    mk.shield = false;
+    mkShowPowerupBanner('🛡 SHIELD BLOCKED IT!');
+    return;
+  }
+  const now = performance.now();
+  const spinDur = isGold ? 2200 : 1200;
+  mk.spinning = true;
+  mk.spinUntil = now + spinDur;
+  mk.spinAngle = 0;
+  mk.lives = Math.max(0, mk.lives - 1);
+  mk.score = Math.max(0, mk.score - (isGold ? 150 : 50));
+  mkSpawnSmoke();
+  setTimeout(() => { mk.spinning = false; }, spinDur);
+  if (mk.lives <= 0) setTimeout(mkEndRace, spinDur + 300);
+}
+
+// ── Spawning ───────────────────────────────────────────────────────────────────
+function mkSpawnObjects() {
+  // Boxes
+  if (mk.distance >= mk.nextBoxDist && mk.boxes.filter(b => !b.hit).length < 3) {
+    const lane = Math.floor(Math.random() * 3);
+    const gold = Math.random() < 0.20;
+    mk.boxes.push({ z: 0.0, lane, gold, hit: false });
+    mk.nextBoxDist = mk.distance + 120 + Math.random() * 80;
+  }
+  // Boost pads
+  if (mk.distance >= mk.nextPadDist && mk.boostPads.filter(p => !p.hit).length < 2) {
+    const lane = Math.floor(Math.random() * 3);
+    mk.boostPads.push({ z: 0.0, lane, hit: false });
+    mk.nextPadDist = mk.distance + 300 + Math.random() * 200;
+  }
+  // Clean up passed objects
+  mk.boxes = mk.boxes.filter(b => b.z < 1.05);
+  mk.boostPads = mk.boostPads.filter(p => p.z < 1.05);
+}
+
+// ── Opponent AI ────────────────────────────────────────────────────────────────
+function mkUpdateOpponents(dt) {
+  mk.opponents.forEach(opp => {
+    // Rubber-band: if behind, speed up a bit; if ahead, slow down
+    const diff = mk.distance - opp.distance;
+    let adjSpeed = opp.speed;
+    if (diff > 100) adjSpeed *= 1.15; // player ahead → opponent speeds up
+    if (diff < -100) adjSpeed *= 0.88; // player behind → opponent slows
+    opp.distance += adjSpeed * dt;
+
+    // Occasionally switch lanes
+    if (Math.random() < 0.002) {
+      opp.lane = Math.floor(Math.random() * 3);
+    }
+  });
+}
+
+// ── Main game loop ─────────────────────────────────────────────────────────────
+function mkGameLoop(ts) {
+  if (!mk.running) return;
+  const dt = Math.min((ts - mk.lastTs) / 1000, 0.05);
+  mk.lastTs = ts;
+
+  if (!mk.questionActive) {
+    // Player movement
+    const spd = mkCurrentSpeed();
+    const now = performance.now();
+
+    // Lane switching
+    const laneTargets = [1/6, 3/6, 5/6]; // 0.167, 0.5, 0.833
+    const targetX = laneTargets[mk.targetLane];
+    const laneSpd = 5 * dt;
+    if (mk.laneX < targetX - 0.01) mk.laneX = Math.min(targetX, mk.laneX + laneSpd);
+    else if (mk.laneX > targetX + 0.01) mk.laneX = Math.max(targetX, mk.laneX - laneSpd);
+
+    if (!mk.spinning) {
+      // Lane input
+      if ((mk.keys.left || mk.touch.left) && !mk._leftHeld) {
+        mk.targetLane = Math.max(0, mk.targetLane - 1);
+        mk._leftHeld = true;
+      }
+      if ((mk.keys.right || mk.touch.right) && !mk._rightHeld) {
+        mk.targetLane = Math.min(2, mk.targetLane + 1);
+        mk._rightHeld = true;
+      }
+      if (!mk.keys.left && !mk.touch.left)  mk._leftHeld = false;
+      if (!mk.keys.right && !mk.touch.right) mk._rightHeld = false;
+    }
+
+    // Advance distance
+    mk.distance += spd * dt;
+    mk.roadOffset += spd * dt * 0.5;
+
+    // Move objects toward player (increase z)
+    const zSpd = spd / mk.totalDist * 12;
+    mk.boxes.forEach(b => { if (!b.hit) b.z += zSpd * dt * 18; });
+    mk.boostPads.forEach(p => { if (!p.hit) p.z += zSpd * dt * 18; });
+
+    mkCheckCollisions();
+    mkSpawnObjects();
+    mkUpdateOpponents(dt);
+    mkCalcPosition();
+    updateEngine(spd, mk.boosting && now < mk.boostUntil);
+
+    // Check boost expiry
+    if (mk.boosting && now >= mk.boostUntil) mk.boosting = false;
+    if (mk.doublePoints && now >= mk.doubleUntil) mk.doublePoints = false;
+  }
+
+  // Draw
+  mk.canvas.width = mk.canvas.offsetWidth;
+  mk.canvas.height = mk.canvas.offsetHeight;
+  mkDraw(ts);
+
+  // Race end check
+  if (mk.distance >= mk.totalDist) {
+    mk.running = false;
+    stopEngine(); stopBgMusic();
+    setTimeout(mkEndRace, 400);
+    return;
+  }
+
+  mk.animFrame = requestAnimationFrame(mkGameLoop);
+}
+
+// ── Race lifecycle ─────────────────────────────────────────────────────────────
 function openWorld3() {
   document.getElementById('world3-overlay').classList.remove('hidden');
   showW3Screen('w3-intro');
 }
 
 function closeWorld3() {
-  race.running = false;
-  if (race.animFrame) { cancelAnimationFrame(race.animFrame); race.animFrame = null; }
-  const layer = document.getElementById('w3-pod-layer');
-  if (layer) layer.innerHTML = '';
+  mk.running = false;
+  if (mk.animFrame) { cancelAnimationFrame(mk.animFrame); mk.animFrame = null; }
+  stopEngine(); stopBgMusic();
+  clearInterval(mk.qTimer);
   document.getElementById('world3-overlay').classList.add('hidden');
   switchTab('map');
 }
@@ -4541,188 +5613,134 @@ function showW3Screen(id) {
 }
 
 function startRace() {
-  Object.assign(race, {
-    round: 0, lives: 3, score: 0, streak: 0,
-    bestStreak: 0, correct: 0, wrong: 0,
-    carX: 50, podSpeed: 20, roadSpeed: 0.55,
-    running: true, roundActive: false, stunUntil: 0, pods: [],
+  // Reset state
+  Object.assign(mk, {
+    running: false, paused: false,
+    lane: 1, targetLane: 1, laneX: 0.5,
+    speed: 180, distance: 0,
+    boosting: false, boostUntil: 0, shield: false,
+    doublePoints: false, doubleUntil: 0,
+    slowUntil: 0, spinning: false, spinUntil: 0, spinAngle: 0,
+    lives: 3, score: 0, streak: 0, bestStreak: 0, correct: 0, wrong: 0, boxesHit: 0,
+    boxes: [], boostPads: [], smoke: [],
+    position: 1,
+    roadOffset: 0,
+    questionActive: false, currentBox: null, qTimeLeft: 10, qTimer: null, qMaxTime: 10,
+    qQuestions: [],
+    nextBoxDist: 200, nextPadDist: 400,
+    _leftHeld: false, _rightHeld: false,
   });
-  race.scenarios = buildRaceScenarios();
-  document.getElementById('w3-pod-layer').innerHTML = '';
-  document.getElementById('w3-road').style.setProperty('--road-spd', race.roadSpeed + 's');
-  updateW3CarPos();
-  updateW3HUD();
+  mk.opponents.forEach((o, i) => {
+    o.distance = 0;
+    o.speed = 160 + i * 8;
+    o.lane = i;
+  });
+
+  // Wire up canvas
+  mk.canvas = document.getElementById('mk-canvas');
+  mk.ctx = mk.canvas.getContext('2d');
+  mk.mmCanvas = document.getElementById('mk-mm-canvas');
+  mk.mmCtx = mk.mmCanvas.getContext('2d');
+  mk.canvas.width = mk.canvas.offsetWidth;
+  mk.canvas.height = mk.canvas.offsetHeight;
+
   showW3Screen('w3-game');
-  document.getElementById('w3-objection').textContent = 'Get ready…';
-  race.lastTs = performance.now();
-  race.animFrame = requestAnimationFrame(raceLoop);
-  setTimeout(startW3Round, 1200);
+  document.getElementById('mk-q-overlay').classList.add('mk-hidden');
+  document.getElementById('mk-powerup-banner').classList.add('mk-hidden');
+
+  // Countdown then go
+  mkRunCountdown(3, () => {
+    mk.running = true;
+    mk.lastTs = performance.now();
+    startEngine();
+    startBgMusic();
+    mk.animFrame = requestAnimationFrame(mkGameLoop);
+  });
 }
 
-function startW3Round() {
-  if (!race.running) return;
-  if (race.round >= 15) { endRace(); return; }
-  const s = race.scenarios[race.round % race.scenarios.length];
-  document.getElementById('w3-objection').textContent = `"${s.objection}"`;
-  document.getElementById('w3-pod-layer').innerHTML = '';
-  race.pods = [];
-  // 3 pods at random lane centres
-  const xs = shuffleArray([17, 50, 83]);
-  shuffleArray([
-    { text: truncatePod(s.correct),    correct: true  },
-    { text: truncatePod(s.wrongs[0]),  correct: false },
-    { text: truncatePod(s.wrongs[1]),  correct: false },
-  ]).forEach((item, i) => spawnW3Pod(item.text, item.correct, xs[i]));
-  race.roundActive = true;
-}
+function mkRunCountdown(n, cb) {
+  const el = document.getElementById('mk-countdown');
+  const num = document.getElementById('mk-countdown-num');
+  el.classList.remove('mk-hidden');
 
-function spawnW3Pod(text, isCorrect, xPct) {
-  const el = document.createElement('div');
-  el.className = 'w3-pod';
-  el.textContent = text;
-  document.getElementById('w3-pod-layer').appendChild(el);
-  const pod = { el, x: xPct, y: -18, correct: isCorrect, done: false };
-  race.pods.push(pod);
-  setW3PodPos(pod);
-}
-
-function setW3PodPos(pod) {
-  pod.el.style.left = (pod.x - R_POD_W / 2) + '%';
-  pod.el.style.top  = pod.y + '%';
-}
-
-function updateW3CarPos() {
-  const car = document.getElementById('w3-car');
-  if (car) car.style.left = race.carX + '%';
-}
-
-function raceLoop(ts) {
-  if (!race.running) return;
-  const dt = Math.min((ts - race.lastTs) / 1000, 0.05);
-  race.lastTs = ts;
-
-  // Smooth car movement (hold left/right)
-  if (ts >= race.stunUntil) {
-    const spd = 80;
-    if (race.keys.left  || race.touch.left)  race.carX = Math.max(R_CAR_W, race.carX - spd * dt);
-    if (race.keys.right || race.touch.right) race.carX = Math.min(100 - R_CAR_W, race.carX + spd * dt);
-    updateW3CarPos();
-  }
-
-  // Move pods + collision
-  if (race.roundActive) {
-    let correctHandled = false;
-    race.pods.forEach(pod => {
-      if (pod.done) return;
-      pod.y += race.podSpeed * dt;
-      setW3PodPos(pod);
-
-      // AABB collision
-      const overlap =
-        (race.carX - R_CAR_W) < (pod.x + R_POD_W / 2) &&
-        (race.carX + R_CAR_W) > (pod.x - R_POD_W / 2) &&
-        R_CAR_TOP < (pod.y + R_POD_H) &&
-        R_CAR_BOT > pod.y;
-
-      if (overlap) {
-        pod.done = true;
-        if (pod.correct) {
-          correctHandled = true;
-          collectW3Pod(pod);
-        } else {
-          hitW3WrongPod(pod);
-        }
-      }
-
-      // Pod escaped off bottom
-      if (!pod.done && pod.y > 100) {
-        pod.done = true;
-        pod.el.style.opacity = '0';
-        setTimeout(() => pod.el.remove(), 300);
-        if (pod.correct) correctHandled = true; // correct missed
-      }
-    });
-
-    if (correctHandled) {
-      race.roundActive = false;
-      race.round++;
-      updateW3HUD();
-      const delay = 950;
-      if (race.lives <= 0 || race.round >= 15) setTimeout(endRace, delay);
-      else setTimeout(startW3Round, delay);
+  let current = n;
+  function tick() {
+    if (current > 0) {
+      num.textContent = current;
+      num.style.animation = 'none';
+      void num.offsetWidth; // reflow
+      num.style.animation = 'countPop 0.35s ease';
+      sndCountdown(n - current);
+      current--;
+      setTimeout(tick, 800);
+    } else {
+      num.textContent = 'GO!';
+      num.style.animation = 'none';
+      void num.offsetWidth;
+      num.style.animation = 'countPop 0.35s ease';
+      sndGo();
+      setTimeout(() => {
+        el.classList.add('mk-hidden');
+        cb();
+      }, 600);
     }
   }
-
-  race.animFrame = requestAnimationFrame(raceLoop);
+  tick();
 }
 
-function collectW3Pod(pod) {
-  pod.el.classList.add('w3-pod-collected');
-  race.correct++;
-  race.streak++;
-  race.bestStreak = Math.max(race.bestStreak, race.streak);
-  const mult = Math.min(4, 1 + Math.floor(race.streak / 3));
-  race.score += 100 * mult;
-  if (race.correct % 3 === 0) {
-    race.podSpeed  = Math.min(52, race.podSpeed + 5);
-    race.roadSpeed = Math.max(0.22, race.roadSpeed - 0.05);
-    document.getElementById('w3-road').style.setProperty('--road-spd', race.roadSpeed + 's');
+function mkEndRace() {
+  mk.running = false;
+  if (mk.animFrame) { cancelAnimationFrame(mk.animFrame); mk.animFrame = null; }
+  stopEngine(); stopBgMusic();
+  clearInterval(mk.qTimer);
+
+  const total = mk.correct + mk.wrong;
+  const accuracy = total > 0 ? Math.round((mk.correct / total) * 100) : 100;
+  const xpEarned = 200 + (mk.correct * 20) + (mk.bestStreak * 15) + (mk.position === 1 ? 150 : mk.position === 2 ? 75 : 0);
+
+  const finishTag = document.getElementById('mk-finish-tag');
+  const finishTitle = document.getElementById('mk-finish-title');
+  const trophy = document.getElementById('mk-finish-trophy');
+
+  if (mk.position === 1) {
+    finishTag.textContent = '🏆 FIRST PLACE';
+    finishTitle.textContent = 'Champion!';
+    trophy.textContent = '🏆';
+    setTimeout(sndVictory, 200);
+    startConfetti(4000);
+  } else if (mk.position <= 2) {
+    finishTag.textContent = '🥈 SECOND PLACE';
+    finishTitle.textContent = 'Strong Race!';
+    trophy.textContent = '🥈';
+    setTimeout(sndVictory, 200);
+  } else if (mk.position <= 3) {
+    finishTag.textContent = '🥉 THIRD PLACE';
+    finishTitle.textContent = 'Keep Practicing!';
+    trophy.textContent = '🥉';
+  } else {
+    finishTag.textContent = '4th PLACE';
+    finishTitle.textContent = 'Back to Training!';
+    trophy.textContent = '😅';
+    setTimeout(sndSadTrombone, 400);
   }
-  const car = document.getElementById('w3-car');
-  car.classList.add('boost');
-  setTimeout(() => { car.classList.remove('boost'); pod.el.remove(); }, 450);
-  updateW3HUD();
-}
-
-function hitW3WrongPod(pod) {
-  pod.el.classList.add('w3-pod-wrong-hit');
-  race.streak = 0;
-  race.wrong++;
-  race.lives = Math.max(0, race.lives - 1);
-  race.score = Math.max(0, race.score - 50);
-  race.stunUntil = performance.now() + 550;
-  const car = document.getElementById('w3-car');
-  car.classList.add('crash');
-  setTimeout(() => car.classList.remove('crash'), 500);
-  document.getElementById('w3-road').classList.add('w3-hit-flash');
-  setTimeout(() => document.getElementById('w3-road').classList.remove('w3-hit-flash'), 380);
-  setTimeout(() => pod.el.remove(), 420);
-  updateW3HUD();
-}
-
-function updateW3HUD() {
-  const total = 15;
-  document.getElementById('w3-gate-label').textContent = `Round ${Math.min(race.round + 1, total)} / ${total}`;
-  document.getElementById('w3-progress-fill').style.width = ((race.round / total) * 100) + '%';
-  document.getElementById('w3-score').textContent = race.score;
-  document.getElementById('w3-streak').textContent = `🔥 ${race.streak}`;
-  document.getElementById('w3-lives').textContent =
-    '❤️'.repeat(race.lives) + '🖤'.repeat(Math.max(0, 3 - race.lives));
-}
-
-function endRace() {
-  race.running = false;
-  if (race.animFrame) { cancelAnimationFrame(race.animFrame); race.animFrame = null; }
-  const total    = race.correct + race.wrong;
-  const accuracy = total > 0 ? Math.round((race.correct / total) * 100) : 100;
-  const xpEarned = 250 + (race.correct * 18) + (race.bestStreak * 12);
 
   document.getElementById('w3-complete-sub').textContent =
-    accuracy >= 90 ? 'Perfect driving — you read every objection at full speed.' :
-    accuracy >= 70 ? 'Strong run. Keep your eyes on the road next time.' :
-    'You finished the dash. Every round makes you sharper.';
+    accuracy >= 85 ? 'Sharp answers and fast instincts — that\'s how deals get closed.' :
+    accuracy >= 65 ? 'Solid run. Keep drilling those objection responses.' :
+    'Every race sharpens your game. Hit the track again.';
 
   document.getElementById('w3-results').innerHTML = `
-    <div class="gauntlet-result-item"><strong>${race.score}</strong><span>Score</span></div>
+    <div class="gauntlet-result-item"><strong>${mk.score}</strong><span>Score</span></div>
+    <div class="gauntlet-result-item"><strong>${mk.position}${['st','nd','rd','th'][mk.position-1]}</strong><span>Finish</span></div>
     <div class="gauntlet-result-item"><strong>${accuracy}%</strong><span>Accuracy</span></div>
-    <div class="gauntlet-result-item"><strong>${race.bestStreak}</strong><span>Best Streak</span></div>
+    <div class="gauntlet-result-item"><strong>${mk.bestStreak}</strong><span>Best Streak</span></div>
   `;
   document.getElementById('w3-xp-badge').textContent = `+${xpEarned} XP`;
 
   showW3Screen('w3-complete');
+  state.gauntletComplete = true;
   updateXPBar(state.xp + xpEarned);
   saveState();
-  startConfetti(3500);
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
@@ -4801,37 +5819,27 @@ function init() {
     if (e.target === document.getElementById('pb-modal-overlay')) closePlaybookModal();
   });
 
-  // Hold-to-steer buttons (pointer events for hold detection)
-  const w3BtnLeft  = document.getElementById('w3-btn-left');
-  const w3BtnRight = document.getElementById('w3-btn-right');
+  // Sales Kart — tap/hold lane buttons
+  const mkBtnLeft  = document.getElementById('mk-btn-left');
+  const mkBtnRight = document.getElementById('mk-btn-right');
   ['pointerdown','touchstart'].forEach(ev => {
-    w3BtnLeft.addEventListener(ev,  e => { e.preventDefault(); race.touch.left  = true;  w3BtnLeft.classList.add('held');    }, { passive: false });
-    w3BtnRight.addEventListener(ev, e => { e.preventDefault(); race.touch.right = true;  w3BtnRight.classList.add('held');   }, { passive: false });
+    mkBtnLeft.addEventListener(ev,  e => { e.preventDefault(); mk.touch.left  = true;  mkBtnLeft.classList.add('held');  }, { passive: false });
+    mkBtnRight.addEventListener(ev, e => { e.preventDefault(); mk.touch.right = true;  mkBtnRight.classList.add('held'); }, { passive: false });
   });
   ['pointerup','pointerleave','touchend','touchcancel'].forEach(ev => {
-    w3BtnLeft.addEventListener(ev,  () => { race.touch.left  = false; w3BtnLeft.classList.remove('held');  });
-    w3BtnRight.addEventListener(ev, () => { race.touch.right = false; w3BtnRight.classList.remove('held'); });
+    mkBtnLeft.addEventListener(ev,  () => { mk.touch.left  = false; mkBtnLeft.classList.remove('held');  });
+    mkBtnRight.addEventListener(ev, () => { mk.touch.right = false; mkBtnRight.classList.remove('held'); });
   });
 
-  // Touch-drag on road to steer (finger follows car)
-  document.getElementById('w3-road').addEventListener('touchmove', e => {
-    e.preventDefault();
-    if (!race.running) return;
-    const touch = e.touches[0];
-    const rect  = document.getElementById('w3-road').getBoundingClientRect();
-    const x = ((touch.clientX - rect.left) / rect.width) * 100;
-    race.carX = Math.max(R_CAR_W, Math.min(100 - R_CAR_W, x));
-  }, { passive: false });
-
-  // Keyboard hold steering (Arrow / WASD)
+  // Keyboard lane switching (Arrow / WASD) — tap, not hold
   document.addEventListener('keydown', e => {
     if (document.getElementById('world3-overlay').classList.contains('hidden')) return;
-    if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') race.keys.left  = true;
-    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') race.keys.right = true;
+    if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') { mk.keys.left  = true; }
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { mk.keys.right = true; }
   });
   document.addEventListener('keyup', e => {
-    if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') race.keys.left  = false;
-    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') race.keys.right = false;
+    if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') mk.keys.left  = false;
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') mk.keys.right = false;
   });
 
   // Daily challenge button

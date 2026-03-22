@@ -216,47 +216,91 @@
   <div id="world3-overlay" class="hidden">
 
     <!-- Intro -->
-    <div id="w3-intro" class="w3-screen">
+    <div id="w3-intro" class="w3-screen w3-intro-screen">
       <div class="w3-world-tag">🏎️ WORLD 3</div>
-      <h1 class="w3-h1">Objection Dash</h1>
-      <p class="w3-intro-text">Drive your car to collect the correct sales response — and dodge the wrong ones. Touch &amp; drag the road to steer on mobile. Arrow keys or A/D on desktop. Speed increases every 3 correct answers.</p>
+      <h1 class="w3-h1">Sales Kart</h1>
+      <p class="w3-intro-text">Race the track. Hit mystery boxes to trigger sales questions. Nail the answer — get a power-up. Blow it — spin out. Beat your opponents to the finish.</p>
       <div class="gauntlet-meta-row">
-        <div class="gauntlet-meta-item w3-meta"><strong>15</strong><span>Rounds</span></div>
+        <div class="gauntlet-meta-item w3-meta"><strong>20</strong><span>Boxes</span></div>
         <div class="gauntlet-meta-item w3-meta"><strong>3</strong><span>Lives</span></div>
-        <div class="gauntlet-meta-item w3-meta"><strong>Dodge!</strong><span>Wrong = stun</span></div>
+        <div class="gauntlet-meta-item w3-meta"><strong>⭐ Gold</strong><span>3× Points</span></div>
+      </div>
+      <div class="w3-intro-controls">
+        <div class="w3-ctrl-hint">◀ ▶ Arrow keys / A D to steer</div>
+        <div class="w3-ctrl-hint">Tap left / right on mobile</div>
       </div>
       <button class="btn-pill btn-w3-gold btn-wide" id="btn-start-race">Start Engine 🏁</button>
       <button class="btn-pill btn-gauntlet-ghost" id="btn-w3-back">← Back to Map</button>
     </div>
 
-    <!-- Game -->
-    <div id="w3-game" class="w3-screen hidden">
-      <button class="escape-btn escape-btn-overlay" id="btn-escape-w3" title="Back to map">🗺️</button>
-      <div class="w3-hud">
-        <span class="w3-gate-label" id="w3-gate-label">Round 1 / 15</span>
-        <div class="w3-progress-wrap"><div class="w3-progress-fill" id="w3-progress-fill"></div></div>
-        <span class="w3-lives" id="w3-lives">❤️❤️❤️</span>
-        <span class="w3-score-display" id="w3-score">0</span>
+    <!-- Game (full-screen canvas) -->
+    <div id="w3-game" class="w3-screen w3-mk-game hidden">
+      <canvas id="mk-canvas"></canvas>
+
+      <!-- HUD: top-left -->
+      <div id="mk-hud-tl">
+        <div id="mk-pos-badge">1st</div>
+        <div id="mk-lives-hud">❤️❤️❤️</div>
       </div>
-      <div class="w3-objection-panel" id="w3-objection">Get ready…</div>
-      <div class="w3-road" id="w3-road">
-        <div class="w3-lane-line" style="left:33.33%"></div>
-        <div class="w3-lane-line" style="left:66.66%"></div>
-        <div id="w3-pod-layer"></div>
-        <div class="w3-car" id="w3-car">🏎️</div>
+
+      <!-- HUD: top-right -->
+      <div id="mk-hud-tr">
+        <div id="mk-score-hud">0</div>
+        <div id="mk-streak-hud">🔥 0</div>
       </div>
-      <div class="w3-controls">
-        <button class="w3-steer-btn" id="w3-btn-left">◀ Left</button>
-        <span class="w3-streak-chip" id="w3-streak">🔥 0</span>
-        <button class="w3-steer-btn" id="w3-btn-right">Right ▶</button>
+
+      <!-- Race progress bar (top center) -->
+      <div id="mk-progress-wrap">
+        <div id="mk-progress-fill"></div>
+        <span id="mk-progress-flag">🏁</span>
       </div>
+
+      <!-- Power-up banner -->
+      <div id="mk-powerup-banner" class="mk-hidden"></div>
+
+      <!-- Mini-map (bottom-right) -->
+      <div id="mk-minimap">
+        <canvas id="mk-mm-canvas" width="110" height="70"></canvas>
+      </div>
+
+      <!-- Countdown overlay -->
+      <div id="mk-countdown" class="mk-hidden">
+        <div id="mk-countdown-num">3</div>
+      </div>
+
+      <!-- Question popup -->
+      <div id="mk-q-overlay" class="mk-hidden">
+        <div id="mk-q-box">
+          <div id="mk-q-badge">❓ MYSTERY BOX</div>
+          <div id="mk-q-timer-wrap"><div id="mk-q-timer-fill"></div></div>
+          <div id="mk-q-text"></div>
+          <div id="mk-yn-row">
+            <button class="mk-yn-btn mk-yes" id="mk-btn-yes">✓ YES</button>
+            <button class="mk-yn-btn mk-no"  id="mk-btn-no">✗ NO</button>
+          </div>
+          <div id="mk-mc-row" class="mk-hidden">
+            <button class="mk-mc-btn" data-idx="0"></button>
+            <button class="mk-mc-btn" data-idx="1"></button>
+            <button class="mk-mc-btn" data-idx="2"></button>
+          </div>
+          <div id="mk-q-feedback" class="mk-hidden"></div>
+        </div>
+      </div>
+
+      <!-- Mobile controls -->
+      <div id="mk-controls">
+        <button class="mk-ctrl-btn" id="mk-btn-left">◀</button>
+        <button class="mk-ctrl-btn" id="mk-btn-right">▶</button>
+      </div>
+
+      <button class="escape-btn mk-escape" id="btn-escape-w3" title="Back to map">🗺️</button>
     </div>
 
     <!-- Complete -->
     <div id="w3-complete" class="w3-screen hidden">
-      <div class="gauntlet-trophy">🏁</div>
-      <div class="w3-world-tag">RACE COMPLETE</div>
-      <h2 class="gauntlet-h2" style="color:#fff">Sales Sprint Done!</h2>
+      <div id="mk-finish-trophy">🏆</div>
+      <div class="w3-world-tag" id="mk-finish-tag">RACE COMPLETE</div>
+      <h2 class="gauntlet-h2" style="color:#fff" id="mk-finish-title">Sales Sprint Done!</h2>
       <p class="gauntlet-complete-sub" id="w3-complete-sub"></p>
       <div class="gauntlet-results" id="w3-results"></div>
       <div class="xp-award-badge" id="w3-xp-badge">+400 XP</div>
