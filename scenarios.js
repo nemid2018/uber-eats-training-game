@@ -6,7 +6,7 @@ it01: {
   objection: "I'm in the middle of lunch service, come back some other time.",
   responses: [
     {
-      text: "Got it, restaurants your size on this block are adding about $5K a month in delivery revenue. Can I swing back at 3pm when things slow down a bit?",
+      text: "Restaurants nearby add $5K a month in delivery. Back at 3pm?",
       correct: true,
       technique: 'Empathy Opener',
       feedback: "You acknowledge the rush, drop a specific number to create curiosity, and ask for a concrete micro-commitment later the same day.",
@@ -114,7 +114,7 @@ it05: {
   objection: "What's this about? I have 30 seconds.",
   responses: [
     {
-      text: "Three Italian restaurants within a mile joined last quarter and averaged $6,200 in new monthly revenue each. Would ten minutes this week be worth exploring that for your place?",
+      text: "Three spots nearby: $6,200 a month each in new delivery. Worth ten minutes?",
       correct: true,
       technique: '30-Second Pitch',
       feedback: "You respect the time constraint, lead with hyperlocal social proof and a specific dollar figure, and close with a concrete ask for a follow-up meeting.",
@@ -222,7 +222,7 @@ it09: {
   objection: "I'm in the middle of prep. Can you call me tomorrow?",
   responses: [
     {
-      text: "Absolutely. What time works best? I don't want to catch you in the middle of something again — just tell me when you've got a clear moment.",
+      text: "Absolutely. What time tomorrow works, not during prep?",
       correct: true,
       technique: 'Timing Request',
       feedback: "You respect his workflow, show you understand restaurant rhythms, and lock in a specific callback time rather than a vague 'tomorrow.'",
@@ -340,7 +340,7 @@ it13: {
       feedback: "Jumping to commission details before understanding his specific concern misses the emotional root of his objection.",
     },
     {
-      text: "Is that from personal experience or something you read? I want to make sure I address the actual issue you're worried about rather than guess at what happened.",
+      text: "Personal experience, or something you read? My answer depends on that.",
       correct: true,
       technique: 'Curiosity Hook',
       feedback: "You validate his distrust, distinguish between personal experience and hearsay, and show you want to have a real conversation rather than bulldoze past his concern.",
@@ -448,7 +448,7 @@ it17: {
       feedback: "Without asking what to include or setting a follow-up, the email becomes a dead end.",
     },
     {
-      text: "What's your email? I'll keep it to three bullet points and include delivery data specific to your area. Anything in particular you'd want me to make sure I cover?",
+      text: "Your email? Three bullet points, local delivery data. Anything specific to include?",
       correct: true,
       technique: 'Permission to Continue',
       feedback: "You comply with his request, promise brevity and relevance, and ask what he cares about, making the email a collaborative step rather than a brush-off.",
@@ -561,7 +561,7 @@ it21: {
       feedback: "Relabeling the cost without explaining the incremental value sounds like a rhetorical trick.",
     },
     {
-      text: "It's only on orders from customers who weren't going to walk in anyway — people who are brand new to you. Does that change the math when you think about it that way?",
+      text: "Only on new customers who'd never walk in. Does that change the math?",
       correct: true,
       technique: 'Immediate Credibility',
       feedback: "You honor his concern about margins and reframe the commission as a customer acquisition cost on incremental revenue rather than a tax on existing sales.",
@@ -664,7 +664,7 @@ it25: {
       feedback: "Generalizing about order complexity without knowing his menu or kitchen setup isn't credible.",
     },
     {
-      text: "You control the volume completely. You set your own hours, pause during the rush, and cap how many orders come in per hour. Want to see exactly how the throttle works?",
+      text: "You control it: pause during rush, cap orders per hour. Want to see?",
       correct: true,
       technique: 'Immediate Credibility',
       feedback: "You directly address the overwhelm fear by showing that he controls the volume, and offer to demonstrate the specific feature.",
@@ -777,7 +777,7 @@ it29: {
       feedback: "This undermines their partnership dynamic and could create friction in their relationship.",
     },
     {
-      text: "Smart to have someone focused on that side. When does she usually come in? I'd rather catch you both together so I'm not explaining it twice and she can ask questions directly.",
+      text: "Smart setup. When does she come in? I'd rather catch you both together.",
       correct: true,
       technique: 'Gatekeeper Navigation',
       feedback: "You respect the decision-making structure, gauge his personal interest, and get timing intel, all in one natural response.",
@@ -875,7 +875,7 @@ it33: {
       feedback: "Comparing yourself to a local business when he just criticized big tech isn't credible.",
     },
     {
-      text: "When someone nearby searches Italian food on Uber Eats, your restaurant shows up next to the big chains. The money goes to you, not a franchiser. We're actually how local spots compete and win.",
+      text: "Uber Eats is how local spots beat the chains. Your money, not a franchiser's.",
       correct: true,
       technique: 'Specificity Hook',
       feedback: "You honor his values, reframe the platform as a tool that helps local businesses compete against chains, and redirect the 'big tech' concern.",
@@ -978,7 +978,7 @@ it37: {
   objection: "I'm 65 years old. I'm not learning new technology.",
   responses: [
     {
-      text: "You don't learn anything — I do the full setup. After that, orders print exactly like a kitchen ticket. Nothing new to figure out. Want to see a sample of what that actually looks like?",
+      text: "You don't learn a thing. Orders print like a kitchen ticket. Want to see?",
       correct: true,
       technique: 'Empathy Opener',
       feedback: "You remove the tech barrier by showing that the workflow is as simple as reading a kitchen ticket, something he's done for decades.",
@@ -1086,7 +1086,7 @@ it41: {
   objection: "I already told your colleague I'd think about it. That was two months ago.",
   responses: [
     {
-      text: "Did you think about it and decide no, or did it just fall off your plate? Either answer is completely fine — I just want to know where things actually stand before I say anything else.",
+      text: "Did you decide no, or did it fall off your plate? Either is fine.",
       correct: true,
       technique: 'Permission to Continue',
       feedback: "You acknowledge the time gap, ask directly without pressure, and give him permission to say no, which paradoxically often leads to re-engagement.",
@@ -1194,7 +1194,7 @@ it45: {
   objection: "I went to your website and the signup process looked complicated. I gave up halfway through.",
   responses: [
     {
-      text: "Sorry that was frustrating — that's exactly why I'm here in person. You tell me the menu items and I'll handle the rest. When's a good time to sit down together for about fifteen minutes?",
+      text: "Exactly why I'm here. You name the dishes, I handle the rest. When's good?",
       correct: true,
       technique: 'Empathy Opener',
       feedback: "You validate his frustration, position your in-person visit as the solution, and offer to do the heavy lifting, removing the exact barrier that stopped him.",
@@ -1312,7 +1312,7 @@ it49: {
       feedback: "Reframing 'loss' as 'opportunity' is semantics, he'll see through it immediately.",
     },
     {
-      text: "Nope. I actually looked up who shows up when people search Italian food nearby right now. There's a competitive gap I found that I think you'd genuinely want to know about.",
+      text: "Nope. I looked up who shows up when people search Italian food nearby. There's a gap.",
       correct: true,
       technique: 'Pattern Interrupt',
       feedback: "You break his expectation by not doing what he predicted, show respect for his knowledge, and tease a specific competitive insight.",
