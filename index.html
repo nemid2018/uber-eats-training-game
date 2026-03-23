@@ -164,15 +164,19 @@
         <div class="response-grid" id="response-grid"></div>
       </div>
 
-      <!-- Screen: District Complete -->
+      <!-- Screen: Session Complete -->
       <div id="screen-complete" class="t-screen hidden">
         <div class="complete-card">
           <div class="complete-emoji" id="complete-emoji">🎉</div>
-          <h2>District Complete!</h2>
+          <h2 id="complete-title">Session Complete!</h2>
           <div class="stars-row" id="stars-row">⭐⭐⭐</div>
           <p class="complete-summary" id="complete-summary"></p>
           <div class="xp-award-badge" id="xp-award-badge">+150 XP</div>
-          <button class="btn-pill btn-black btn-wide" id="btn-back-map">View Map</button>
+          <p class="complete-congrats" id="complete-congrats">Great work! You completed this session 🎉</p>
+          <div class="complete-actions">
+            <button class="complete-btn complete-btn-green" id="btn-keep-training">🔁 Keep Training</button>
+            <button class="complete-btn complete-btn-outline" id="btn-back-map">🗺️ Back to Map</button>
+          </div>
         </div>
       </div>
 
@@ -247,6 +251,7 @@
       <div id="mk-hud-tr">
         <div id="mk-score-hud">0</div>
         <div id="mk-streak-hud">🔥 0</div>
+        <div id="mk-speed-hud">0 km/h</div>
       </div>
 
       <!-- Race progress bar (top center) -->
@@ -358,20 +363,34 @@
 
   </div>
 
-  <!-- ═══ PLAYBOOK MODAL ═══════════════════════════════════════════════════ -->
-  <div id="pb-modal-overlay" class="pb-modal-overlay">
-    <div class="pb-modal" id="pb-modal">
-      <div class="pb-modal-drag"></div>
-      <button class="pb-modal-close" id="pb-modal-close">✕</button>
-      <div class="pb-modal-header">
-        <div class="pb-modal-icon-wrap" id="pb-modal-icon"></div>
-        <div class="pb-modal-titles">
-          <div class="pb-modal-tag" id="pb-modal-tag"></div>
-          <div class="pb-modal-name" id="pb-modal-name"></div>
-          <div class="pb-modal-tagline" id="pb-modal-tagline"></div>
+  <!-- ═══ PLAYBOOK DETAIL PAGE ════════════════════════════════════════════ -->
+  <div id="pb-detail-page" class="pb-detail-page hidden">
+    <div class="pb-detail-topbar">
+      <button class="pb-detail-back" id="pb-detail-back">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Playbook
+      </button>
+    </div>
+    <div class="pb-detail-scroll">
+      <div class="pb-detail-inner">
+        <div class="pb-detail-hero">
+          <div class="pb-detail-icon" id="pb-detail-icon"></div>
+          <div class="pb-detail-tag" id="pb-detail-tag"></div>
+          <div class="pb-detail-name" id="pb-detail-name"></div>
+          <div class="pb-detail-tagline" id="pb-detail-tagline"></div>
         </div>
+        <div class="pb-detail-body" id="pb-detail-body"></div>
       </div>
-      <div class="pb-modal-body" id="pb-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══ DAILY RESET OVERLAY ══════════════════════════════════════════════ -->
+  <div id="daily-reset-overlay" class="daily-reset-overlay hidden">
+    <div class="daily-reset-card">
+      <div class="daily-reset-emoji">🌅</div>
+      <div class="daily-reset-headline">New day, new deals!</div>
+      <div class="daily-reset-sub">Your journey resets. Let's go!</div>
+      <div class="daily-reset-bar"><div class="daily-reset-bar-fill"></div></div>
     </div>
   </div>
 

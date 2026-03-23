@@ -24,6 +24,7 @@ const DISTRICTS = [
   {
     id: 'italian',
     name: 'Little Italy',
+    skill: 'The Opener',
     emoji: '🍕',
     color: '#e63946',
     description: 'The Opener. Cold walk-ins, phone intros, getting past gatekeepers, building instant credibility in the first 30 seconds. Your job: earn the conversation.',
@@ -35,6 +36,7 @@ const DISTRICTS = [
   {
     id: 'chinese',
     name: 'Chinatown',
+    skill: 'Objection Handling',
     emoji: '🥢',
     color: '#f4a261',
     description: 'Objection Handling. Overcome "we use DoorDash", "fees are too high", "we tried delivery before", "we have our own drivers". Flip resistance into reason.',
@@ -46,6 +48,7 @@ const DISTRICTS = [
   {
     id: 'mexican',
     name: 'Mercado District',
+    skill: 'The Pitch',
     emoji: '🌮',
     color: '#2a9d8f',
     description: 'The Pitch. Present revenue potential, show customer reach data, compare competitors honestly, share success stories, walk through the dashboard and tools.',
@@ -57,6 +60,7 @@ const DISTRICTS = [
   {
     id: 'japanese',
     name: 'Sakura Quarter',
+    skill: 'The Close',
     emoji: '🍱',
     color: '#8338ec',
     description: 'The Close. Ask for the sale, handle "let me think about it", create genuine urgency, get the contract signed, define next steps after a yes.',
@@ -68,6 +72,7 @@ const DISTRICTS = [
   {
     id: 'health',
     name: 'The Green Mile',
+    skill: 'The Follow Up',
     emoji: '🥗',
     color: '#06C167',
     description: 'The Follow Up. Re-engage cold leads, call back after no response, turn a maybe into a yes, manage accounts post-launch, and build long-term relationships.',
@@ -3029,6 +3034,14 @@ const PLAYBOOK_CARDS = [
         right: "Word of mouth is powerful — for the people already in your network. The gap it can't close is the person who moved to the neighborhood last month and has no connection to your existing customers yet. That's who the platform reaches.",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "We already use DoorDash. We don't need another platform." },
+      { speaker: 'You', text: "That makes sense — a lot of the restaurants I work with were in the exact same spot. Can I ask, is DoorDash bringing you new customers, or mostly people who already know you?" },
+      { speaker: 'Owner', text: "Mostly regulars, I think. People who already order from us." },
+      { speaker: 'You', text: "That's actually the gap Uber Eats fills. Our customer base skews toward people actively exploring new restaurants — searching 'Italian food near me' at 7pm with no specific place in mind. Those are people who have never heard of you. DoorDash retains your existing audience. We build a new one. They're not competing — they're doing completely different jobs." },
+      { speaker: 'Owner', text: "Hm. I hadn't thought about it that way." },
+      { speaker: 'You', text: "Most operators who run both see almost zero overlap in their customer lists. Same time window, completely different people. And since there's no monthly fee, every order through us is revenue that wasn't there before." },
+    ],
   },
   {
     id: 'channel-separation',
@@ -3055,6 +3068,14 @@ const PLAYBOOK_CARDS = [
         wrong: "Delivery would help you reach customers outside your immediate walk-in area.",
         right: "Your walk-in regulars aren't going anywhere — delivery doesn't touch them. It reaches the person working from home 8 blocks away who has never walked past your door. Two different people, two different moments. Neither touches the other.",
       },
+    ],
+    script: [
+      { speaker: 'Owner', text: "We have our own website ordering. I don't see why I'd pay a platform fee on top of that." },
+      { speaker: 'You', text: "Makes sense — you've already invested in that. Can I ask, where does your website traffic come from? Is it mostly people who already know your name, or do you get a lot of new visitors?" },
+      { speaker: 'Owner', text: "Mostly people who already know us. Regulars, really." },
+      { speaker: 'You', text: "That's actually a really common pattern. Your website is great at converting people who already have you in mind. The gap it can't close is the person who's never heard of you — searching 'Mexican food near me' at 8pm with no restaurant in mind. That's a completely different moment, a completely different person. The platform is fishing in water your website doesn't reach." },
+      { speaker: 'Owner', text: "So you're saying they don't overlap?" },
+      { speaker: 'You', text: "Almost never. Different intent, different moment. Someone typing your restaurant name into Google already made their decision. Someone browsing Uber Eats at 7:30pm still hasn't. That's the customer you can't get from your website alone — and there's no monthly cost to find out." },
     ],
   },
   {
@@ -3083,6 +3104,14 @@ const PLAYBOOK_CARDS = [
         right: "The tasting-menu spot three blocks from you — Sora — they had the same concern. They launched six months ago and it's now 18% of their revenue, mostly new customers who came in person after trying the food on delivery first.",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "Our restaurant is different. We're a specialty place — those platform stats don't apply to us." },
+      { speaker: 'You', text: "I hear that a lot, actually. What makes you different — is it the cuisine, the price point, the neighborhood?" },
+      { speaker: 'Owner', text: "We're a high-end Korean BBQ. Very specific clientele. Not the fast-food crowd." },
+      { speaker: 'You', text: "Okay — there's a high-end Korean BBQ in Koreatown that said the exact same thing 9 months ago. Same clientele concern, same positioning. They're now doing about 19% of their revenue through delivery — and here's the part that surprised them: 70% of those delivery customers had never dined in. They came in for the first time after trying it on delivery." },
+      { speaker: 'Owner', text: "That's actually interesting. I wouldn't have expected that." },
+      { speaker: 'You', text: "Most operators don't. The assumption is delivery dilutes your brand. For premium food, it often does the opposite — it becomes a trial channel. Someone orders once at home, loves it, becomes a dine-in regular. The delivery order was the introduction." },
+    ],
   },
   {
     id: 'incremental-logic',
@@ -3109,6 +3138,14 @@ const PLAYBOOK_CARDS = [
         wrong: "Our success rates are very high — most restaurants see strong results within 30 days.",
         right: "Fair question. Here's the smallest version: five menu items, no discounts, three days a week, 30 days. I'll sit with you after 30 days and look at the numbers honestly. If it's not working, there's nothing to continue. The exit is as easy as the entry.",
       },
+    ],
+    script: [
+      { speaker: 'Owner', text: "I'm not ready to commit to full delivery operations. It sounds like a big lift." },
+      { speaker: 'You', text: "Totally fair. What if we made the commitment much smaller — what does your kitchen look like on weekday afternoons, say 2 to 5pm?" },
+      { speaker: 'Owner', text: "Pretty slow. We're prepped but the dining room is quiet." },
+      { speaker: 'You', text: "That's the window. Five items — your best sellers — three weekday afternoons, 30 days. No changes to your lunch or dinner service, no new staff, no disruption to your rush. Just that one quiet window." },
+      { speaker: 'Owner', text: "That does sound more manageable. What do we look for to know if it's working?" },
+      { speaker: 'You', text: "I'd say 10 incremental delivery orders in the first two weeks is the signal worth continuing. That's not a high bar — it's one order every other day in a window you weren't using. At the end of 30 days we look at it together. If the math doesn't work, there's nothing to continue. The exit is as easy as the entry." },
     ],
   },
   {
@@ -3137,6 +3174,14 @@ const PLAYBOOK_CARDS = [
         right: "Fair. What does a slow Tuesday afternoon look like for your kitchen right now? If there are three hours where the team is prepped and the dining room has four covers, that's idle capacity — and idle capacity is the thing I'd want to run the numbers on.",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "Your commission is 30%. I run on tight margins. This doesn't make sense for us." },
+      { speaker: 'You', text: "Let's actually run it instead of guessing. What's your average check?" },
+      { speaker: 'Owner', text: "Around $22." },
+      { speaker: 'You', text: "Okay. At 30%, you keep $15.40 per order. If your food cost is around 32%, that's about $7 in food cost — so you're netting roughly $8.40 per delivery order. That's before any overhead you've already paid for the shift." },
+      { speaker: 'Owner', text: "That's less than my dine-in margin." },
+      { speaker: 'You', text: "Right — it's a thinner margin per order. But the question is what orders these are replacing. If your kitchen is running at capacity, every delivery order competes with a dine-in seat, and the math looks worse. But if there's any downtime — a quiet Tuesday afternoon, the last 90 minutes of the night — those orders aren't replacing anything. At $8.40 net on a slow window, 10 additional orders a week is $84. What does your Monday afternoon look like?" },
+    ],
   },
   {
     id: 'pipeline-value',
@@ -3163,6 +3208,14 @@ const PLAYBOOK_CARDS = [
         wrong: "Delivery at your first location doesn't require much of your time.",
         right: "Your second location is actually a reason to start at the first one now. Platform data shows you where your delivery customers cluster — zip codes, times, demographics. That's market research for where the second location should go and how to price it.",
       },
+    ],
+    script: [
+      { speaker: 'Owner', text: "I don't really see the long-term value. It's just extra orders with fees attached." },
+      { speaker: 'You', text: "What's your growth plan look like — are you thinking about a second location at some point?" },
+      { speaker: 'Owner', text: "Yeah, we've been talking about it. Probably 18 months out, maybe Midtown or the West Side." },
+      { speaker: 'You', text: "Then here's what makes the timing interesting. Every delivery order generates location data — what zip codes your customers are coming from, what times they order, what they reorder. After six months on the platform, you'd have a real picture of where your delivery demand clusters. That's not sales pitch data — that's your actual customer geography. It tells you whether Midtown or the West Side has more of your customer profile already." },
+      { speaker: 'Owner', text: "I hadn't thought of it as market research." },
+      { speaker: 'You', text: "Most operators don't until they're looking back at it. A year of delivery data before you sign a lease is meaningful. Platform ranking and review volume also compound — you'd open the second location with an established brand presence, not starting from zero. The orders pay for themselves in the short term; the data pays for itself when you're making a six-figure location decision." },
     ],
   },
   {
@@ -3191,6 +3244,14 @@ const PLAYBOOK_CARDS = [
         right: "Which service was it? I want to understand exactly what went wrong — not give you a recycled pitch. A driver management problem, a platform support problem, and a kitchen workflow problem all have different fixes. Tell me what specifically went wrong and I'll tell you honestly whether we solve it or not.",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "I can't control what happens after the food leaves my kitchen. If a driver messes up, my reputation takes the hit." },
+      { speaker: 'You', text: "That's one of the most legitimate concerns I hear, and I want to be direct about how accountability actually works on the platform — not just tell you it's fine." },
+      { speaker: 'Owner', text: "Okay, I'm listening." },
+      { speaker: 'You', text: "Delivery complaints — late, wrong item, tampered packaging — go to our support team, not you. They're logged against the delivery, not your restaurant profile. Your restaurant rating reflects your kitchen: preparation, accuracy, food quality. A driver's GPS detour is our problem to answer, not yours." },
+      { speaker: 'Owner', text: "What about missing items? That sometimes gets blamed on the restaurant even when it's not our fault." },
+      { speaker: 'You', text: "That's a real one. The protocol is: disputed missing item claims go through a review that looks at whether the issue was reported at pickup or after. Preparation errors are on your account; handling errors after pickup are on the courier. And you can see which category each complaint falls into in the partner dashboard. No black-box blame attribution — it's visible." },
+    ],
   },
   {
     id: 'premium-positioning',
@@ -3217,6 +3278,14 @@ const PLAYBOOK_CARDS = [
         wrong: "Promotions are optional — you don't have to run them if you don't want to.",
         right: "Let me be direct: zero promotions required, ever. You go live at full price with no promotional badge. Full-price listings perform well when the restaurant has strong reviews and quality presentation. Your 12-year no-discount history is a selling point on the listing, not a constraint.",
       },
+    ],
+    script: [
+      { speaker: 'Owner', text: "We're a fine dining restaurant. Being on a delivery app just doesn't fit our image." },
+      { speaker: 'You', text: "I hear that — and I'd rather show you than argue with you. Can I pull up a listing on my laptop for a second?" },
+      { speaker: 'Owner', text: "Sure." },
+      { speaker: 'You', text: "This is a Michelin-recognized tasting menu restaurant in the West Village. What you're seeing is their listing — custom photography, no promotional badge, full menu pricing, and a description they wrote themselves. Nothing about this looks like a fast food app. The platform is the distribution; the brand is entirely yours to build." },
+      { speaker: 'Owner', text: "That does look different from what I was picturing." },
+      { speaker: 'You', text: "The assumption is that being on delivery means looking like everyone else. It doesn't — unless you let it. Your photography, your descriptions, your price points, your story. If anything, a strong listing at your price tier stands out because most listings around it are generic. That contrast works in your favor." },
     ],
   },
   {
@@ -3245,6 +3314,14 @@ const PLAYBOOK_CARDS = [
         right: "What would it take for a delivery company to not sound the same to you? I'm genuinely asking — because if there's nothing that would change that, I don't want to waste your time. But if there's something specific you'd need to hear or see that would feel different, tell me what it is.",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "I tried a platform a couple years back. It was terrible. I won't go through that again." },
+      { speaker: 'You', text: "I'm not going to tell you that's not valid. Which platform was it, and what specifically went wrong?" },
+      { speaker: 'Owner', text: "It was Grubhub. Orders were showing up an hour late, customers were furious, and the platform blamed us in the reviews." },
+      { speaker: 'You', text: "The review attribution issue — that's a real structural problem with how some platforms handle complaints. Did the bad reviews stick to your profile even after you disputed them?" },
+      { speaker: 'Owner', text: "Some of them, yeah. Took months to get them removed, if at all." },
+      { speaker: 'You', text: "That's the specific thing I wanted to understand — because my answer is completely different depending on what went wrong. Delivery latency is mostly a courier density problem, which varies by market and platform. Review attribution is a policy issue, and ours separates delivery complaints from kitchen ratings by default. I'm not telling you it's perfect — I'm telling you the specific failure you described has a different structure here. Would it be worth looking at the data for your area to see how delivery times actually run in your zip code?" },
+    ],
   },
   {
     id: 'hyperlocal-data',
@@ -3271,6 +3348,14 @@ const PLAYBOOK_CARDS = [
         wrong: "Delivery has expanded to all types of neighborhoods — the demand is there.",
         right: "Let me check before we assume. Give me your cross streets and I'll pull the active delivery order data for your cuisine category in your radius. If demand is thin, I'll tell you. But the assumption that local neighborhoods don't order is wrong more often than it's right — the data usually surprises people.",
       },
+    ],
+    script: [
+      { speaker: 'Owner', text: "I've seen platform statistics before. They're always cherry-picked to make the numbers look good." },
+      { speaker: 'You', text: "You're right to be skeptical of platform-wide averages — they're almost useless for any specific decision. What would actually be useful is your zip code specifically." },
+      { speaker: 'Owner', text: "What do you mean?" },
+      { speaker: 'You', text: "I can pull active delivery order volume for Thai restaurants at your price tier in your delivery radius — not a national average, your specific market. Give me your cross streets." },
+      { speaker: 'Owner', text: "We're at Clark and Belmont." },
+      { speaker: 'You', text: "Okay, pulling that now. Thai food in your delivery radius — you're looking at roughly 340 orders per week going to the four Thai restaurants currently active in that radius. Average check about $26. The closest competitor to your price point is doing about 80 orders a week. That's your addressable pool — how much of that you capture depends on your reviews and listing quality, but the demand is there. That's not a platform stat — that's your neighborhood." },
     ],
   },
   {
@@ -3299,6 +3384,14 @@ const PLAYBOOK_CARDS = [
         right: "That's a fair concern and I won't promise it won't happen — I don't control that. What I can show you is the contract terms and the fee history. And I'd rather you make this decision with real information than on my assurance. Would it help to talk to a restaurant that's been on the platform for three years?",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "We tried delivery for four months. Revenue went up. But when I looked at my P&L, profit actually went down." },
+      { speaker: 'You', text: "That's the most important thing you've said in this conversation. I take that seriously. Tell me what you were tracking — was the revenue increase mostly delivery?" },
+      { speaker: 'Owner', text: "Yeah. We were doing about 30 more orders a week but my labor and packaging costs went up and net profit dropped about $800 a month." },
+      { speaker: 'You', text: "There are three things that usually cause that: packaging cost not priced into the delivery menu, labor that wasn't anticipated and not offset by removing dine-in shifts, or a platform commission that wasn't factored into the menu price from day one. Did you run delivery pricing the same as your dine-in menu?" },
+      { speaker: 'Owner', text: "We did, actually. Same prices." },
+      { speaker: 'You', text: "That's likely where it broke. Delivery economics require a delivery-adjusted menu — most restaurants mark up 10 to 15% on delivery items to absorb the commission and keep the net margin. It's not a platform problem, it's a pricing setup problem, and it's fixable. I'm not going to pretend delivery is right for every model — but the failure you described has a specific fix. Want to run the math on what your pricing would need to look like for the margin to work?" },
+    ],
   },
   {
     id: 'timing-bridge',
@@ -3326,6 +3419,14 @@ const PLAYBOOK_CARDS = [
         right: "Eight weeks in is usually not the right moment — you're right. Most new restaurants that do well on delivery wait until service is running smoothly, around month 3 or 4. I'd rather come back when you're ready than add stress now. Should I check in at the 3-month mark — and what's the one thing you'd want to have figured out before that conversation?",
       },
     ],
+    script: [
+      { speaker: 'Owner', text: "This isn't the right time. We're dealing with a lot of internal stuff right now." },
+      { speaker: 'You', text: "I hear you. I'd rather call when it's actually useful than push something that creates more noise. Can I ask — what needs to settle before this becomes the right conversation?" },
+      { speaker: 'Owner', text: "We're in the middle of hiring two new line cooks. Once that's sorted, things will stabilize." },
+      { speaker: 'You', text: "Okay — that's a real constraint. Kitchen capacity affects delivery directly, so waiting until the team is stable is the right call. When do you expect to have the hires in place and trained?" },
+      { speaker: 'Owner', text: "Probably six weeks. Maybe early May." },
+      { speaker: 'You', text: "Then let me call you May 5th, specifically to revisit this — not to pitch, just to see where things stand. And if you want, I can send you the onboarding checklist now so when the timing is right, you're not starting from zero. That way the conversation in May is 'let's go' instead of 'let me read through all this.'" },
+    ],
   },
 ];
 
@@ -3346,9 +3447,17 @@ const state = {
   isDaily: false,
   dailyCompleted: false,
   leaderboard: [],
+  nextResetAt: 0,
+  warnedFiveMin: false,
 };
 
 // ─── PERSISTENCE ─────────────────────────────────────────────────────────────
+
+function getNextMidnight() {
+  const d = new Date();
+  d.setHours(24, 0, 0, 0);
+  return d.getTime();
+}
 
 function saveState() {
   const toSave = {
@@ -3359,19 +3468,25 @@ function saveState() {
     dailyDate: new Date().toDateString(),
     leaderboard: state.leaderboard,
     gauntletComplete: state.gauntletComplete,
+    nextResetAt: state.nextResetAt,
   };
   localStorage.setItem('ue_academy_v3', JSON.stringify(toSave));
 }
 
 function loadState() {
   const raw = localStorage.getItem('ue_academy_v3');
-  if (!raw) return;
+  if (!raw) {
+    // First ever load — set next reset to midnight
+    state.nextResetAt = getNextMidnight();
+    return;
+  }
   try {
     const saved = JSON.parse(raw);
     state.xp = saved.xp || 0;
     state.streak = saved.streak || 0;
     state.leaderboard = saved.leaderboard || [];
     state.gauntletComplete = saved.gauntletComplete || false;
+    state.nextResetAt = saved.nextResetAt || getNextMidnight();
     // Reset daily if it's a new day
     state.dailyCompleted = saved.dailyDate === new Date().toDateString()
       ? (saved.dailyCompleted || false)
@@ -3380,7 +3495,40 @@ function loadState() {
     if (saved.districtProgress) {
       Object.assign(state.districtProgress, saved.districtProgress);
     }
+    // If we've passed the saved reset time, run the reset immediately on load
+    if (state.nextResetAt > 0 && Date.now() >= state.nextResetAt) {
+      applyDailyReset(false); // silent — no modal on load
+    }
   } catch (e) { /* ignore corrupt save */ }
+}
+
+function applyDailyReset(showModal = true) {
+  // Wipe all progress
+  state.xp = 0;
+  state.streak = 0;
+  state.gauntletComplete = false;
+  state.dailyCompleted = false;
+  DISTRICTS.forEach(d => { state.districtProgress[d.id] = 'locked'; });
+  state.districtProgress[DISTRICTS[0].id] = 'unlocked';
+  // Push next reset to following midnight
+  state.nextResetAt = getNextMidnight();
+  saveState();
+
+  if (showModal) {
+    // Show reset message, then return to map
+    const overlay = document.getElementById('daily-reset-overlay');
+    overlay.classList.remove('hidden');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      // Refresh all UI
+      updateXPBar(0, false);
+      updateStreakUI();
+      renderMap();
+      switchTab('map');
+    }, 3200);
+  } else {
+    // Silent load-time reset — UI will be updated by init() after loadState returns
+  }
 }
 
 // ─── LEVEL SYSTEM ────────────────────────────────────────────────────────────
@@ -3599,8 +3747,13 @@ function renderMap() {
     labelEl.className = 'node-label';
     labelEl.textContent = district.name;
 
+    const skillEl = document.createElement('span');
+    skillEl.className = 'node-skill';
+    skillEl.textContent = district.skill || '';
+
     node.appendChild(emojiEl);
     node.appendChild(labelEl);
+    node.appendChild(skillEl);
 
     if (status === 'unlocked' || status === 'complete') {
       node.style.cursor = 'pointer';
@@ -3718,22 +3871,48 @@ function showTrainScreen(id) {
   document.getElementById(id).classList.remove('hidden');
 }
 
+// Map scenario ID prefix → district id so random-mode can show the right persona
+function districtForScenarioId(sid) {
+  if (/^it\d|^s0[123]$/.test(sid)) return 'italian';
+  if (/^ch\d|^s0[456]$/.test(sid)) return 'chinese';
+  if (/^mx\d|^s0[789]$/.test(sid)) return 'mexican';
+  if (/^jp\d|^s1[012]$/.test(sid)) return 'japanese';
+  if (/^hl\d|^s1[345]$/.test(sid)) return 'health';
+  return DISTRICTS[0].id;
+}
+
 function startDistrict() {
   state.activeScenarioIndex = 0;
   state.scenarioResults = [];
   state.answered = false;
+
   const district = DISTRICTS.find(d => d.id === state.activeDistrictId);
-  const pool = district.scenarioPool || district.scenarioIds;
-  state.activeScenarioIds = shuffleArray([...pool]).slice(0, 5);
+
+  let pool;
+  if (district) {
+    // A specific island was selected — use its pool as before
+    state.allIslandsMode = false;
+    pool = district.scenarioPool || district.scenarioIds;
+  } else {
+    // No island selected — draw randomly from every island at once
+    state.allIslandsMode = true;
+    pool = DISTRICTS.flatMap(d => d.scenarioPool || d.scenarioIds);
+  }
+
+  state.activeScenarioIds = shuffleArray([...pool]).slice(0, 10);
   showTrainScreen('screen-question');
   loadQuestion();
-  mascotSay('Show me what you got! 🎯');
+  mascotSay(district ? 'Show me what you got! 🎯' : 'Random mix from all islands — let\'s go! 🌍🎯');
 }
 
 function loadQuestion() {
-  const district = DISTRICTS.find(d => d.id === state.activeDistrictId);
-  const persona = PERSONAS[district.personaId];
   const scenarioId = state.activeScenarioIds[state.activeScenarioIndex];
+  // In all-islands mode there's no fixed district — derive it from the scenario ID
+  const districtId = state.allIslandsMode
+    ? districtForScenarioId(scenarioId)
+    : state.activeDistrictId;
+  const district = DISTRICTS.find(d => d.id === districtId);
+  const persona = PERSONAS[district.personaId];
   const scenario = SCENARIOS[scenarioId];
 
   // Update top bar
@@ -3879,51 +4058,53 @@ function nextQuestion() {
 
 function finishDistrict() {
   stopTimer();
-  const district = DISTRICTS.find(d => d.id === state.activeDistrictId);
-  const correct = state.scenarioResults.filter(r => r.correct).length;
-  const total = state.scenarioResults.length;
-  const totalXP = state.scenarioResults.reduce((s, r) => s + r.xp, 0);
+  const district = DISTRICTS.find(d => d.id === state.activeDistrictId); // null in all-islands mode
+  const correct  = state.scenarioResults.filter(r => r.correct).length;
+  const total    = state.scenarioResults.length;
+  const totalXP  = state.scenarioResults.reduce((s, r) => s + r.xp, 0);
   const accuracy = Math.round((correct / total) * 100);
 
-  // Mark complete
-  state.districtProgress[state.activeDistrictId] = 'complete';
-
-  // Unlock next district
-  const idx = DISTRICTS.findIndex(d => d.id === state.activeDistrictId);
-  if (idx < DISTRICTS.length - 1) {
-    const nextId = DISTRICTS[idx + 1].id;
-    if (state.districtProgress[nextId] !== 'complete') {
-      state.districtProgress[nextId] = 'unlocked';
+  if (district) {
+    // Single-district mode: mark progress and unlock next
+    state.districtProgress[state.activeDistrictId] = 'complete';
+    const idx = DISTRICTS.findIndex(d => d.id === state.activeDistrictId);
+    if (idx < DISTRICTS.length - 1) {
+      const nextId = DISTRICTS[idx + 1].id;
+      if (state.districtProgress[nextId] !== 'complete') {
+        state.districtProgress[nextId] = 'unlocked';
+      }
     }
+    if (district.playbookUnlock) {
+      const card = PLAYBOOK_CARDS.find(c => c.id === district.playbookUnlock);
+      if (card) showToast(`📖 Playbook unlocked: ${card.name}!`, 'green');
+    }
+    if (typeof recordRun === 'function') recordRun(district, totalXP, accuracy);
   }
 
-  // Unlock playbook card
-  if (district.playbookUnlock) {
-    const card = PLAYBOOK_CARDS.find(c => c.id === district.playbookUnlock);
-    if (card) showToast(`📖 Playbook unlocked: ${card.name}!`, 'green');
-  }
-
-  // Daily challenge done
   if (state.isDaily) state.dailyCompleted = true;
-
-  // Record to leaderboard
-  recordRun(district, totalXP, accuracy);
   saveState();
 
-  // Show complete screen
-  document.getElementById('complete-emoji').textContent = district.emoji;
-  const stars = correct === total ? '⭐⭐⭐' : correct >= 3 ? '⭐⭐' : '⭐';
-  document.getElementById('stars-row').textContent = stars;
+  // Build completion screen
+  const stars = correct === total ? '⭐⭐⭐' : correct >= Math.ceil(total / 2) ? '⭐⭐' : '⭐';
+  const congrats = correct === total
+    ? 'Perfect score! You\'re on fire 🔥'
+    : correct >= Math.ceil(total / 2)
+      ? 'Great work! You completed this session 🎉'
+      : 'Keep practicing — you\'ve got this 💪';
+
+  document.getElementById('complete-emoji').textContent = district ? district.emoji : '🌍';
+  document.getElementById('complete-title').textContent = district ? 'District Complete!' : 'Session Complete!';
+  document.getElementById('stars-row').textContent      = stars;
   document.getElementById('complete-summary').textContent =
-    `${correct}/${total} correct · ${accuracy}% accuracy`;
-  document.getElementById('xp-award-badge').textContent = `+${totalXP} XP`;
+    `${correct} / ${total} correct · ${accuracy}% accuracy`;
+  document.getElementById('xp-award-badge').textContent  = `+${totalXP} XP`;
+  document.getElementById('complete-congrats').textContent = congrats;
 
   showTrainScreen('screen-complete');
   hideCoachPanel();
 
-  // Confetti!
   setTimeout(() => startConfetti(3500), 200);
-  mascotReact('happy', 'District complete! 🏆');
+  mascotReact('happy', district ? 'District complete! 🏆' : 'Session complete! 🏆');
 }
 
 // ─── TIMER ───────────────────────────────────────────────────────────────────
@@ -4144,10 +4325,10 @@ function renderPlaybook() {
 }
 
 function openPlaybookModal(card) {
-  document.getElementById('pb-modal-icon').textContent = card.icon;
-  document.getElementById('pb-modal-tag').textContent = card.id.replace(/-/g, ' ').toUpperCase();
-  document.getElementById('pb-modal-name').textContent = card.name;
-  document.getElementById('pb-modal-tagline').textContent = card.tagline || '';
+  document.getElementById('pb-detail-icon').textContent = card.icon;
+  document.getElementById('pb-detail-tag').textContent = card.id.replace(/-/g, ' ').toUpperCase();
+  document.getElementById('pb-detail-name').textContent = card.name;
+  document.getElementById('pb-detail-tagline').textContent = card.tagline || '';
 
   const examplesHtml = (card.examples || []).map(ex => `
     <div class="pb-example-card">
@@ -4158,7 +4339,21 @@ function openPlaybookModal(card) {
     </div>
   `).join('');
 
-  document.getElementById('pb-modal-body').innerHTML = `
+  const scriptHtml = (card.script && card.script.length) ? `
+    <div class="pb-script-section">
+      <div class="pb-section-label pb-script-label">🎙️ Word-for-word script</div>
+      <div class="pb-script-convo">
+        ${card.script.map(line => `
+          <div class="pb-script-line pb-script-${line.speaker === 'You' ? 'you' : 'owner'}">
+            <div class="pb-script-speaker">${line.speaker === 'You' ? 'You' : 'Owner'}</div>
+            <div class="pb-script-bubble">${line.text}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
+  document.getElementById('pb-detail-body').innerHTML = `
     <div class="pb-section">
       <div class="pb-section-label">What it is</div>
       <p>${card.what || card.desc}</p>
@@ -4176,14 +4371,26 @@ function openPlaybookModal(card) {
       <p>${card.mistakes || ''}</p>
     </div>
     ${examplesHtml ? `<div class="pb-section-label pb-examples-label">💬 Conversation examples</div>${examplesHtml}` : ''}
+    ${scriptHtml}
   `;
 
-  document.getElementById('pb-modal-overlay').classList.add('open');
+  const page = document.getElementById('pb-detail-page');
+  page.classList.remove('hidden');
+  // Force reflow so transition fires from translateX(100%)
+  page.getBoundingClientRect();
+  page.classList.add('pb-detail-open');
+  page.querySelector('.pb-detail-scroll').scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
 
 function closePlaybookModal() {
-  document.getElementById('pb-modal-overlay').classList.remove('open');
+  const page = document.getElementById('pb-detail-page');
+  page.classList.remove('pb-detail-open');
+  page.classList.add('pb-detail-closing');
+  setTimeout(() => {
+    page.classList.add('hidden');
+    page.classList.remove('pb-detail-closing');
+  }, 280);
   document.body.style.overflow = '';
 }
 
@@ -4239,14 +4446,24 @@ function renderLeaderboard() {
 
 function startDailyTimer() {
   function update() {
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0);
-    const diff = midnight - now;
+    const now = Date.now();
+    const diff = Math.max(0, state.nextResetAt - now);
     const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
     const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
     const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     document.getElementById('daily-timer').textContent = `${h}:${m}:${s}`;
+
+    // 5-minute warning
+    if (!state.warnedFiveMin && diff > 0 && diff <= 300000) {
+      state.warnedFiveMin = true;
+      showToast('Daily reset in 5 minutes! Finish your current session.', 'warning');
+    }
+
+    // Trigger reset when countdown hits 0
+    if (diff === 0 && state.nextResetAt > 0) {
+      state.warnedFiveMin = false;
+      applyDailyReset(true);
+    }
   }
   update();
   setInterval(update, 1000);
@@ -4664,151 +4881,217 @@ const MK_GOLD = [
 let mkAudioCtx = null;
 
 function mkAudio() {
-  if (!mkAudioCtx) mkAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (!mkAudioCtx) mkAudioCtx = new (window.AudioContext || window['webkitAudioContext'])();
   return mkAudioCtx;
 }
 
 function mkResume() { if (mkAudioCtx && mkAudioCtx.state === 'suspended') mkAudioCtx.resume(); }
 
-function mkBeep(freq, dur, type = 'sine', vol = 0.4, delay = 0) {
+// ── Generic tone helper (sine/triangle only — no buzzy waveforms) ─────────────
+function mkTone(freq, dur, vol = 0.3, delay = 0, type = 'sine', attack = 0.008, decay = 0.05) {
   try {
     const ctx = mkAudio(); mkResume();
-    const osc = ctx.createOscillator();
+    const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
+    const lpf  = ctx.createBiquadFilter();
+    lpf.type = 'lowpass'; lpf.frequency.value = 3200;
+    osc.connect(lpf); lpf.connect(gain); gain.connect(ctx.destination);
     osc.type = type; osc.frequency.value = freq;
     const t = ctx.currentTime + delay;
     gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(vol, t + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    osc.start(t); osc.stop(t + dur + 0.05);
+    gain.gain.linearRampToValueAtTime(vol, t + attack);
+    gain.gain.setValueAtTime(vol, t + dur - decay);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.start(t); osc.stop(t + dur + 0.02);
   } catch(e) {}
 }
 
-function mkNoise(dur, vol = 0.3, delay = 0) {
+// Soft crowd whoosh using filtered noise
+function mkWhoosh(dur, vol = 0.18, delay = 0, cutoff = 800) {
   try {
     const ctx = mkAudio(); mkResume();
-    const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    const src = ctx.createBufferSource();
+    const len = Math.ceil(ctx.sampleRate * dur);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d   = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const src  = ctx.createBufferSource();
+    const lpf  = ctx.createBiquadFilter();
     const gain = ctx.createGain();
-    const filt = ctx.createBiquadFilter();
-    src.buffer = buf; filt.type = 'bandpass'; filt.frequency.value = 1200;
-    src.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
+    src.buffer = buf;
+    lpf.type = 'lowpass'; lpf.frequency.value = cutoff;
+    src.connect(lpf); lpf.connect(gain); gain.connect(ctx.destination);
     const t = ctx.currentTime + delay;
-    gain.gain.setValueAtTime(vol, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    src.start(t); src.stop(t + dur + 0.05);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.start(t); src.stop(t + dur + 0.02);
   } catch(e) {}
 }
 
 function sndCountdown(n) {
-  const freqs = [330, 392, 494, 660];
-  mkBeep(freqs[Math.min(n, 3)], 0.18, 'sine', 0.5);
+  const freqs = [294, 349, 440, 523];
+  mkTone(freqs[Math.min(n, 3)], 0.22, 0.4, 0, 'sine', 0.005, 0.08);
 }
 
 function sndGo() {
-  [523, 659, 784, 1047].forEach((f, i) => mkBeep(f, 0.15, 'sine', 0.5, i * 0.06));
+  // Rising major chord arpeggio
+  [523, 659, 784, 1047].forEach((f, i) => mkTone(f, 0.28, 0.35, i * 0.07, 'sine', 0.005, 0.12));
 }
 
 function sndBoxHit() {
-  mkBeep(880, 0.12, 'sine', 0.35);
-  mkBeep(1100, 0.1, 'sine', 0.2, 0.08);
+  // Bright xylophone-like ding
+  mkTone(1047, 0.18, 0.28, 0,    'sine',     0.004, 0.10);
+  mkTone(1319, 0.14, 0.18, 0.07, 'triangle', 0.004, 0.08);
 }
 
 function sndGoldBoxHit() {
-  [880, 1100, 1320, 1760].forEach((f, i) => mkBeep(f, 0.12, 'sine', 0.3, i * 0.06));
+  // Magic sparkle — rising arpeggio
+  [880, 1109, 1319, 1760, 2093].forEach((f, i) =>
+    mkTone(f, 0.18, 0.22, i * 0.055, 'sine', 0.003, 0.12));
 }
 
 function sndCorrect() {
-  mkBeep(523, 0.08, 'sine', 0.3);
-  mkBeep(659, 0.08, 'sine', 0.3, 0.09);
-  mkBeep(784, 0.2, 'sine', 0.4, 0.18);
-  mkNoise(0.15, 0.2, 0.18);
+  // Short cheerful fanfare
+  mkTone(523, 0.10, 0.22, 0.00, 'sine');
+  mkTone(659, 0.10, 0.22, 0.10, 'sine');
+  mkTone(784, 0.22, 0.28, 0.20, 'sine', 0.005, 0.15);
+  mkWhoosh(0.25, 0.12, 0.20, 600);
 }
 
 function sndWrong() {
-  mkBeep(220, 0.08, 'sawtooth', 0.4);
-  mkBeep(180, 0.12, 'sawtooth', 0.4, 0.1);
-  mkBeep(140, 0.2, 'sawtooth', 0.3, 0.2);
+  // Low descending tone — no buzz
+  mkTone(311, 0.12, 0.28, 0.00, 'triangle', 0.006, 0.06);
+  mkTone(247, 0.16, 0.28, 0.13, 'triangle', 0.006, 0.08);
+  mkTone(196, 0.22, 0.22, 0.28, 'triangle', 0.006, 0.12);
 }
 
 function sndSpinOut() {
   try {
     const ctx = mkAudio(); mkResume();
-    const osc = ctx.createOscillator();
+    // Descending pitch sweep — triangle wave through low-pass filter
+    const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'sawtooth';
+    const lpf  = ctx.createBiquadFilter();
+    lpf.type = 'lowpass'; lpf.frequency.value = 1800;
+    osc.connect(lpf); lpf.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'triangle';
     const t = ctx.currentTime;
-    osc.frequency.setValueAtTime(600, t);
-    osc.frequency.exponentialRampToValueAtTime(80, t + 0.6);
-    gain.gain.setValueAtTime(0.5, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.65);
-    osc.start(t); osc.stop(t + 0.7);
-    mkNoise(0.4, 0.3);
+    osc.frequency.setValueAtTime(520, t);
+    osc.frequency.exponentialRampToValueAtTime(90, t + 0.7);
+    gain.gain.setValueAtTime(0.28, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.75);
+    osc.start(t); osc.stop(t + 0.8);
+    // Soft skid noise
+    mkWhoosh(0.45, 0.14, 0, 1400);
   } catch(e) {}
 }
 
 function sndBoost() {
   try {
     const ctx = mkAudio(); mkResume();
-    const osc = ctx.createOscillator();
+    // Rising sine sweep — clean and punchy
+    const osc  = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = 'sawtooth';
+    const lpf  = ctx.createBiquadFilter();
+    lpf.type = 'lowpass'; lpf.frequency.value = 2400;
+    osc.connect(lpf); lpf.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine';
     const t = ctx.currentTime;
-    osc.frequency.setValueAtTime(200, t);
-    osc.frequency.exponentialRampToValueAtTime(800, t + 0.3);
-    gain.gain.setValueAtTime(0.3, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
-    osc.start(t); osc.stop(t + 0.4);
+    osc.frequency.setValueAtTime(180, t);
+    osc.frequency.exponentialRampToValueAtTime(720, t + 0.32);
+    gain.gain.setValueAtTime(0.22, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+    osc.start(t); osc.stop(t + 0.42);
   } catch(e) {}
 }
 
 function sndVictory() {
-  const melody = [523,659,784,1047,784,1047,1319];
-  melody.forEach((f, i) => mkBeep(f, 0.25, 'sine', 0.4, i * 0.13));
-  mkNoise(0.5, 0.35, 0.8);
+  // Bright ascending fanfare
+  [523,659,784,1047,784,1047,1319].forEach((f, i) =>
+    mkTone(f, 0.28, 0.32, i * 0.12, 'sine', 0.005, 0.14));
+  mkWhoosh(0.6, 0.15, 0.7, 700);
 }
 
 function sndSadTrombone() {
-  [311, 277, 247, 220].forEach((f, i) => mkBeep(f, 0.3, 'sawtooth', 0.35, i * 0.22));
-}
-
-// ── Engine loop sound ─────────────────────────────────────────────────────────
-let mkEngineOsc = null, mkEngineGain = null;
-
-function startEngine() {
+  // Warm descending glide — triangle, smooth
   try {
     const ctx = mkAudio(); mkResume();
-    mkEngineOsc = ctx.createOscillator();
-    mkEngineGain = ctx.createGain();
-    mkEngineOsc.connect(mkEngineGain);
-    mkEngineGain.connect(ctx.destination);
-    mkEngineOsc.type = 'sawtooth';
-    mkEngineOsc.frequency.value = 90;
-    mkEngineGain.gain.value = 0.05;
-    mkEngineOsc.start();
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const lpf  = ctx.createBiquadFilter();
+    lpf.type = 'lowpass'; lpf.frequency.value = 900;
+    osc.connect(lpf); lpf.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'triangle';
+    const t = ctx.currentTime;
+    osc.frequency.setValueAtTime(311, t);
+    osc.frequency.exponentialRampToValueAtTime(175, t + 1.1);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.28, t + 0.06);
+    gain.gain.setValueAtTime(0.28, t + 0.9);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
+    osc.start(t); osc.stop(t + 1.25);
+  } catch(e) {}
+}
+
+// ── Engine sound (layered sine + triangle, low-pass filtered) ─────────────────
+let mkEngineNodes = null; // { fundamental, harmonic, gain, lpf }
+
+function startEngine() {
+  stopEngine();
+  try {
+    const ctx  = mkAudio(); mkResume();
+    const fund = ctx.createOscillator(); // fundamental tone
+    const harm = ctx.createOscillator(); // harmonic (double frequency, lower vol)
+    const mixGain   = ctx.createGain();
+    const fundGain  = ctx.createGain();
+    const harmGain  = ctx.createGain();
+    const lpf       = ctx.createBiquadFilter();
+
+    lpf.type = 'lowpass'; lpf.frequency.value = 600; lpf.Q.value = 0.8;
+
+    fund.type = 'sine';     fund.frequency.value = 72;
+    harm.type = 'triangle'; harm.frequency.value = 144;
+    fundGain.gain.value = 0.06;
+    harmGain.gain.value = 0.025;
+
+    fund.connect(fundGain); fundGain.connect(mixGain);
+    harm.connect(harmGain); harmGain.connect(mixGain);
+    mixGain.connect(lpf);   lpf.connect(ctx.destination);
+
+    mixGain.gain.value = 1;
+    fund.start(); harm.start();
+    mkEngineNodes = { fund, harm, fundGain, harmGain, mixGain, lpf };
   } catch(e) {}
 }
 
 function updateEngine(speed, boosting) {
-  if (!mkEngineOsc) return;
+  if (!mkEngineNodes) return;
   try {
-    const baseFreq = 80 + speed * 0.4;
-    const freq = boosting ? baseFreq * 1.6 : baseFreq;
-    const vol = boosting ? 0.09 : 0.04;
-    mkEngineOsc.frequency.setTargetAtTime(freq, mkAudioCtx.currentTime, 0.1);
-    mkEngineGain.gain.setTargetAtTime(vol, mkAudioCtx.currentTime, 0.1);
+    const ctx  = mkAudio();
+    const now  = ctx.currentTime;
+    // Map speed 0–14 → base freq 58–140 Hz
+    const base = 58 + speed * 5.8;
+    const freq = boosting ? base * 1.55 : base;
+    const vol  = boosting ? 0.09 : 0.055;
+    const lpfF = boosting ? 900 : 550;
+    mkEngineNodes.fund.frequency.setTargetAtTime(freq,       now, 0.15);
+    mkEngineNodes.harm.frequency.setTargetAtTime(freq * 2,   now, 0.15);
+    mkEngineNodes.mixGain.gain.setTargetAtTime(vol / 0.06,   now, 0.15);
+    mkEngineNodes.lpf.frequency.setTargetAtTime(lpfF,        now, 0.15);
   } catch(e) {}
 }
 
 function stopEngine() {
   try {
-    if (mkEngineGain) mkEngineGain.gain.setTargetAtTime(0, mkAudioCtx.currentTime, 0.1);
-    setTimeout(() => { try { mkEngineOsc?.stop(); } catch(e){} mkEngineOsc = null; mkEngineGain = null; }, 300);
+    if (mkEngineNodes) {
+      const { fund, harm, mixGain } = mkEngineNodes;
+      const now = mkAudioCtx.currentTime;
+      mixGain.gain.setTargetAtTime(0, now, 0.12);
+      setTimeout(() => {
+        try { fund.stop(); harm.stop(); } catch(e) {}
+        mkEngineNodes = null;
+      }, 400);
+    }
   } catch(e) {}
 }
 
@@ -4870,13 +5153,18 @@ function mkBuildTrack() {
 const TRACK = mkBuildTrack();
 
 function mkPlaceBoxes() {
+  // At cruise speed ~5 seg/sec, boxes are ~18-22 seconds apart (90-110 segments).
+  // Gold boxes are rare — roughly 1 per full lap.
   const boxes = [];
-  let i = 25;
-  while (i < TRACK_LEN - 5) {
-    const gold = Math.random() < 0.20;
+  let i = 60;
+  let lastGold = -999;
+  while (i < TRACK_LEN - 20) {
+    const minGoldGap = 220; // segments (~44s at cruise) between gold boxes
+    const gold = Math.random() < 0.12 && (i - lastGold) > minGoldGap;
+    if (gold) lastGold = i;
     const laneX = [-0.52, 0, 0.52][Math.floor(Math.random() * 3)];
     boxes.push({ trackPos: i, laneX, gold, hit: false, popAnim: 0 });
-    i += 14 + Math.floor(Math.random() * 10);
+    i += 90 + Math.floor(Math.random() * 40); // 90-130 segments between boxes
   }
   return boxes;
 }
@@ -4892,7 +5180,7 @@ const mk = {
   lap: 0,
   totalLaps: 2,
   // Inputs
-  keys:  { left: false, right: false },
+  keys:  { left: false, right: false, up: false, down: false },
   touch: { left: false, right: false },
   // Stats
   lives: 3, score: 0, streak: 0, bestStreak: 0, correct: 0, wrong: 0,
@@ -4915,7 +5203,7 @@ const mk = {
   curveTable: null,
   // Question state
   questionActive: false, currentBox: null, qTimeLeft: 10, qTimer: null, qMaxTime: 10,
-  qQuestions: [],
+  qQuestions: [], lastQuestionTime: 0, // timestamp of last question close (ms)
   // Canvas refs
   canvas: null, ctx: null, mmCanvas: null, mmCtx: null,
   // Animation
@@ -4947,7 +5235,7 @@ function mkCenterX(d, w, roadHalf) {
 }
 
 // ── Sky drawing ───────────────────────────────────────────────────────────────
-function mkDrawSky(ctx, w, h, horizY, ts) {
+function mkDrawSky(ctx, w, _h, horizY, ts) {
   const grad = ctx.createLinearGradient(0, 0, 0, horizY);
   grad.addColorStop(0,    '#1565c0');
   grad.addColorStop(0.5,  '#42a5f5');
@@ -4994,13 +5282,18 @@ function mkDrawCloud(ctx, cx, cy, r) {
 // ── Road drawing (scanline) ───────────────────────────────────────────────────
 function mkDrawRoad(ctx, w, h, horizY, roadHalf) {
   const BAND = 2;
+  // Use mk.pos float (not floor) so stripes scroll smoothly every frame.
+  // Smaller divisors = stripes pass more frequently = strong sense of speed.
+  // At cruise speed 5 seg/s: near stripe flips ~1.25×/sec; at boost 14: ~3.5×/sec.
+  const p = mk.pos;
   for (let y = Math.round(horizY); y < h; y += BAND) {
     const d   = (h - horizY) / (y - horizY + 0.0001);
     const n   = Math.max(1, Math.min(Math.round(d), DRAW_DIST));
-    const stripe    = Math.floor(n / 9) % 2;
-    const curbStr   = Math.floor(n / 3) % 2;
-    const laneStr   = Math.floor(n / 4) % 2;
-    const ueStr     = Math.floor(n / 6) % 3 === 0;
+    const wp  = p + n;            // world position at this depth — scrolls every frame
+    const stripe    = Math.floor(wp / 4) % 2;    // main road bands (was /9 — much too slow)
+    const curbStr   = Math.floor(wp / 2) % 2;    // tight curb flicker for speed feeling
+    const laneStr   = Math.floor(wp / 3) % 2;    // lane dash rhythm
+    const ueStr     = Math.floor(wp / 5) % 3 === 0;
 
     const cx   = mkCenterX(d, w, roadHalf);
     const halfW = roadHalf / d;
@@ -5212,35 +5505,154 @@ function mkDrawOpponent(ctx, opp, horizY, w, h, roadHalf) {
 }
 
 // ── Player car ────────────────────────────────────────────────────────────────
+// Car is ALWAYS at w * 0.5 on screen — the road moves under it via mk.playerX.
+// Adding a lateral carX offset here fights the road's own perspective and makes
+// everything look angled. The road formula already handles the visual shift.
 function mkDrawPlayerCar(ctx, w, h) {
   const now = performance.now();
   const carX = w * 0.5;
-  const carY = h * 0.78;
+  const bounce = Math.sin(mk.pos * 5.5) * 2.0 * Math.min(1, mk.speed / 7);
+  const carY = h * 0.80 + bounce;
+
   ctx.save();
   ctx.translate(carX, carY);
-  ctx.rotate(mk.steer * 0.1);
+
+  // Lean body into turns (visual tilt only — road centering is via playerX, not carX)
+  const lean = mk.spinning ? 0 : mk.steer * 0.14;
+  ctx.rotate(lean);
 
   if (mk.spinning && now < mk.spinUntil) {
     mk.spinAngle += 0.2;
     ctx.rotate(mk.spinAngle);
   }
 
+  // Boost flames
   if (mk.boosting && now < mk.boostUntil) {
-    ctx.shadowColor = '#06C167';
-    ctx.shadowBlur = 28;
-    ctx.strokeStyle = 'rgba(6,193,103,0.35)';
-    ctx.lineWidth = 2;
-    for (let i = 0; i < 6; i++) {
-      const lx = (i - 2.5) * 11;
-      const len = 28 + Math.random() * 18;
-      ctx.beginPath(); ctx.moveTo(lx, 28); ctx.lineTo(lx, 28 + len); ctx.stroke();
+    const flameLen = 18 + Math.random() * 14;
+    ctx.fillStyle = '#ff6a00';
+    for (let i = 0; i < 3; i++) {
+      const fx = (i - 1) * 20;
+      ctx.beginPath();
+      ctx.ellipse(fx, 52, 5, flameLen, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#ffe033';
+    for (let i = 0; i < 3; i++) {
+      const fx = (i - 1) * 20;
+      ctx.beginPath();
+      ctx.ellipse(fx, 52, 2.5, flameLen * 0.55, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
-  ctx.font = '54px sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('🏎️', 0, 0);
+  mkDrawUECar(ctx);
   ctx.restore();
+}
+
+// Draws the Uber Eats delivery car centered at origin, rear-view perspective.
+function mkDrawUECar(ctx) {
+  const W = 84, H = 58;  // car dimensions
+  const hW = W / 2, hH = H / 2;
+
+  // Drop shadow
+  ctx.save();
+  ctx.globalAlpha = 0.25;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(0, hH + 8, hW * 0.85, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // ── Wheels ──────────────────────────────────────────────────────────────
+  const wx = hW + 4, wy = 8;         // rear axle position
+  ctx.fillStyle = '#1a1a1a';
+  // rear-left wheel
+  ctx.beginPath(); ctx.ellipse(-wx, wy, 13, 10, 0, 0, Math.PI * 2); ctx.fill();
+  // rear-right wheel
+  ctx.beginPath(); ctx.ellipse(wx, wy, 13, 10, 0, 0, Math.PI * 2); ctx.fill();
+  // front-left wheel (smaller, perspective)
+  ctx.fillStyle = '#111';
+  ctx.beginPath(); ctx.ellipse(-hW + 2, -hH + 10, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+  // front-right wheel
+  ctx.beginPath(); ctx.ellipse(hW - 2, -hH + 10, 10, 8, 0, 0, Math.PI * 2); ctx.fill();
+  // Wheel rims
+  ctx.fillStyle = '#666';
+  ctx.beginPath(); ctx.ellipse(-wx, wy, 6, 5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(wx, wy, 6, 5, 0, 0, Math.PI * 2); ctx.fill();
+
+  // ── Car body ─────────────────────────────────────────────────────────────
+  ctx.fillStyle = '#06C167';
+  ctx.beginPath();
+  ctx.moveTo(-hW + 6, hH);
+  ctx.lineTo( hW - 6, hH);
+  ctx.quadraticCurveTo(hW, hH, hW, hH - 6);
+  ctx.lineTo(hW, -hH + 16);
+  ctx.lineTo(hW - 4, -hH + 14);
+  ctx.lineTo(-hW + 4, -hH + 14);
+  ctx.lineTo(-hW, -hH + 16);
+  ctx.lineTo(-hW, hH - 6);
+  ctx.quadraticCurveTo(-hW, hH, -hW + 6, hH);
+  ctx.closePath();
+  ctx.fill();
+
+  // Body highlight stripe
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.fillRect(-hW + 8, -hH + 18, W - 16, 6);
+
+  // ── Roof / cabin ─────────────────────────────────────────────────────────
+  ctx.fillStyle = '#111';
+  ctx.beginPath();
+  ctx.moveTo(-hW + 14, -hH + 14);
+  ctx.lineTo( hW - 14, -hH + 14);
+  ctx.lineTo( hW - 8,  -hH - 10);
+  ctx.lineTo(-hW + 8,  -hH - 10);
+  ctx.closePath();
+  ctx.fill();
+
+  // ── Rear window ──────────────────────────────────────────────────────────
+  ctx.fillStyle = 'rgba(140,210,255,0.70)';
+  ctx.beginPath();
+  ctx.moveTo(-hW + 18, -hH + 12);
+  ctx.lineTo( hW - 18, -hH + 12);
+  ctx.lineTo( hW - 12, -hH - 6);
+  ctx.lineTo(-hW + 12, -hH - 6);
+  ctx.closePath();
+  ctx.fill();
+  // Glass shine
+  ctx.fillStyle = 'rgba(255,255,255,0.30)';
+  ctx.fillRect(-hW + 20, -hH + 2, 14, 5);
+
+  // ── Delivery bag on roof ──────────────────────────────────────────────────
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.roundRect(-13, -hH - 24, 26, 18, 3); ctx.fill();
+  ctx.fillStyle = '#06C167';
+  ctx.beginPath(); ctx.roundRect(-12, -hH - 23, 24, 16, 2); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 8px sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('UE', 0, -hH - 15);
+
+  // ── Tail lights ───────────────────────────────────────────────────────────
+  // Outer (bright red)
+  ctx.fillStyle = '#ff1a1a';
+  ctx.beginPath(); ctx.roundRect(-hW + 4, hH - 14, 18, 9, 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect( hW - 22, hH - 14, 18, 9, 2); ctx.fill();
+  // Inner glow
+  ctx.fillStyle = 'rgba(255,80,80,0.6)';
+  ctx.beginPath(); ctx.roundRect(-hW + 6, hH - 12, 12, 5, 1); ctx.fill();
+  ctx.beginPath(); ctx.roundRect( hW - 20, hH - 12, 12, 5, 1); ctx.fill();
+
+  // ── Bumper / rear detail ──────────────────────────────────────────────────
+  ctx.fillStyle = '#044d2c';
+  ctx.fillRect(-hW + 8, hH - 4, W - 16, 5);
+
+  // License plate
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.roundRect(-18, hH - 3, 36, 7, 1); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.font = '5px monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('UBEREATS', 0, hH + 1);
 }
 
 // ── Smoke particles ───────────────────────────────────────────────────────────
@@ -5306,6 +5718,8 @@ function mkUpdateHUD() {
   document.getElementById('mk-streak-hud').textContent = `🔥 ${mk.streak}`;
   document.getElementById('mk-lives-hud').textContent  =
     '❤️'.repeat(mk.lives) + '🖤'.repeat(Math.max(0, 3 - mk.lives));
+  const spdEl = document.getElementById('mk-speed-hud');
+  if (spdEl) spdEl.textContent = Math.round(mk.speed * 8.9) + ' mph';
   const done = mk.lap * TRACK_LEN + mk.pos;
   document.getElementById('mk-progress-fill').style.width =
     Math.min(100, (done / (mk.totalLaps * TRACK_LEN)) * 100) + '%';
@@ -5353,7 +5767,9 @@ function mkDraw(ts) {
 
 // ── Collision ─────────────────────────────────────────────────────────────────
 function mkCheckBoxCollisions() {
+  const COOLDOWN_MS = 10000; // 10 seconds between questions
   if (mk.questionActive || mk.spinning) return;
+  if (performance.now() - mk.lastQuestionTime < COOLDOWN_MS) return;
   mk.boxes.forEach(box => {
     if (box.hit) return;
     const relD = ((box.trackPos - mk.pos) + TRACK_LEN) % TRACK_LEN;
@@ -5399,12 +5815,25 @@ function mkUpdatePhysics(dt) {
   const isBoosting = mk.boosting && now < mk.boostUntil;
   if (mk.boosting && !isBoosting) mk.boosting = false;
 
-  // Speed
-  const maxSpd = isBoosting ? 14 : 8;
-  mk.speed += (maxSpd - mk.speed) * Math.min(1, dt * 2.2);
+  // Speed — throttle / brake / coast
+  const accel = mk.keys.up   || mk.touch.up   || false;
+  const brake = mk.keys.down || mk.touch.down  || false;
+  const topSpd = isBoosting ? 14 : 9;
+  const cruiseSpd = 5.5; // auto-cruise speed — always moving, road always scrolls
+  if (isBoosting) {
+    mk.speed += (topSpd - mk.speed) * Math.min(1, dt * 2.2);
+  } else if (accel) {
+    mk.speed += (topSpd - mk.speed) * Math.min(1, dt * 1.8);  // accelerate to top speed
+  } else if (brake) {
+    mk.speed = Math.max(0, mk.speed - 18 * dt);               // hard brake
+  } else {
+    // Coast back to cruise — decelerate if above it, gently accelerate if below it
+    if (mk.speed > cruiseSpd) mk.speed = Math.max(cruiseSpd, mk.speed - 4 * dt);
+    else mk.speed += (cruiseSpd - mk.speed) * Math.min(1, dt * 1.2);
+  }
 
-  // Off-road slow
-  if (Math.abs(mk.playerX) > 1.1) mk.speed = Math.max(3.2, mk.speed - 10 * dt);
+  // Off-road slow — grass/dirt drag
+  if (Math.abs(mk.playerX) > 1.1) mk.speed = Math.max(1.8, mk.speed - 12 * dt);
 
   // Steering
   const inp = (mk.keys.right || mk.touch.right ? 1 : 0) - (mk.keys.left || mk.touch.left ? 1 : 0);
@@ -5591,6 +6020,7 @@ function mkCloseQuestion() {
   document.getElementById('mk-q-overlay').classList.add('mk-hidden');
   mk.questionActive = false;
   mk.currentBox = null;
+  mk.lastQuestionTime = performance.now(); // start cooldown
 }
 
 function mkApplyPowerup(isGold) {
@@ -5669,7 +6099,7 @@ function startRace() {
     spinning: false, spinUntil: 0, spinAngle: 0,
     smoke: [], curveTable: null,
     questionActive: false, currentBox: null, qTimeLeft: 10, qTimer: null, qMaxTime: 10,
-    qQuestions: [],
+    qQuestions: [], lastQuestionTime: 0,
   });
   mk.boxes = mkPlaceBoxes();
   mk.opponents.forEach((o, i) => {
@@ -5809,6 +6239,12 @@ function init() {
     switchTab('map');
   });
 
+  // Keep training — restart with a fresh random batch from the same context
+  document.getElementById('btn-keep-training').addEventListener('click', () => {
+    hideCoachPanel();
+    startDistrict();
+  });
+
   // Escape buttons — mid-game back to map
   document.getElementById('btn-escape-train').addEventListener('click', () => {
     stopTimer();
@@ -5836,10 +6272,7 @@ function init() {
   document.getElementById('btn-w3-back').addEventListener('click', closeWorld3);
   document.getElementById('btn-w3-done').addEventListener('click', closeWorld3);
 
-  document.getElementById('pb-modal-close').addEventListener('click', closePlaybookModal);
-  document.getElementById('pb-modal-overlay').addEventListener('click', e => {
-    if (e.target === document.getElementById('pb-modal-overlay')) closePlaybookModal();
-  });
+  document.getElementById('pb-detail-back').addEventListener('click', closePlaybookModal);
 
   // Sales Kart — tap/hold lane buttons
   const mkBtnLeft  = document.getElementById('mk-btn-left');
@@ -5858,10 +6291,14 @@ function init() {
     if (document.getElementById('world3-overlay').classList.contains('hidden')) return;
     if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') { mk.keys.left  = true; }
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { mk.keys.right = true; }
+    if (e.key === 'ArrowUp'    || e.key === 'w' || e.key === 'W') { mk.keys.up    = true; e.preventDefault(); }
+    if (e.key === 'ArrowDown'  || e.key === 's' || e.key === 'S') { mk.keys.down  = true; e.preventDefault(); }
   });
   document.addEventListener('keyup', e => {
     if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') mk.keys.left  = false;
     if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') mk.keys.right = false;
+    if (e.key === 'ArrowUp'    || e.key === 'w' || e.key === 'W') mk.keys.up    = false;
+    if (e.key === 'ArrowDown'  || e.key === 's' || e.key === 'S') mk.keys.down  = false;
   });
 
   // Daily challenge button
