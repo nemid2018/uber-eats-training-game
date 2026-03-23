@@ -49,7 +49,7 @@ it02: {
       feedback: "Throwing the hostess under the bus creates conflict and makes you look dishonest.",
     },
     {
-      text: "Understood completely. I'm from Uber Eats and we're actively signing restaurants in this neighborhood right now. I just wanted to make sure you heard about it before we moved on to the next block.",
+      text: "Understood. I'm from Uber Eats — just wanted to make sure you knew.",
       correct: false,
       feedback: "Leading with your company name and urgency triggers the exact vendor-rejection reflex he just expressed.",
     },
@@ -71,7 +71,7 @@ it03: {
       feedback: "Agreeing with his cynicism disarms him, and pivoting to a question about his pain makes the conversation about him instead of you.",
     },
     {
-      text: "Fair enough, I won't push. Maybe I'll check back another time when you're in a better headspace and more open to hearing something genuinely different from the usual pitch.",
+      text: "Fair enough. I'll check back when you're more open to it.",
       correct: false,
       feedback: "Walking away without any engagement wastes the opportunity and signals you have nothing unique to offer.",
     },
@@ -97,7 +97,7 @@ it04: {
       feedback: "This can feel dismissive of the family hierarchy and may offend if the son doesn't have decision-making authority.",
     },
     {
-      text: "That's too bad. Here's my card — pass it along whenever you get a chance and let him know it might be worth a quick look when he has a moment.",
+      text: "That's too bad. Here's my card — pass it along when you can.",
       correct: false,
       feedback: "Cards passed through a gatekeeper rarely reach the decision-maker with any context or urgency.",
     },
@@ -146,7 +146,7 @@ it06: {
       feedback: "Telling someone they'll change their mind is condescending and triggers defensiveness.",
     },
     {
-      text: "Fair enough — I appreciate you being straight with me. Sorry to take up your time and I'll leave you to it.",
+      text: "Fair enough. I appreciate you being straight with me. I'll leave.",
       correct: false,
       feedback: "You've accepted a reflexive no without even attempting to create curiosity, every cold call gets an initial no.",
     },
@@ -173,7 +173,7 @@ it07: {
       feedback: "You're relying entirely on the prospect to take action, which almost never happens with a cold drop-in.",
     },
     {
-      text: "I'd rather not just leave a card and disappear. If we talked for two minutes right now, I know I can share something genuinely worth your time before you decide whether to follow up.",
+      text: "I'd rather not just leave a card and disappear without sharing anything.",
       correct: false,
       feedback: "Refusing his request makes you seem pushy and disrespectful of his boundaries.",
     },
@@ -211,7 +211,7 @@ it08: {
       feedback: "Dismissing his concern ('that's not important') feels evasive and starts the relationship on a bad note.",
     },
     {
-      text: "I apologize if this feels intrusive at all. I can take you off our outreach list right now and make sure no one from our team contacts you again if you'd strongly prefer that.",
+      text: "I apologize if this feels intrusive. I can take you off our list.",
       correct: false,
       feedback: "Over-apologizing and offering to remove him surrenders the conversation before it starts.",
     },
@@ -265,7 +265,7 @@ it10: {
       feedback: "You break the sales script entirely by leading with a genuine compliment from a neighbor and asking a curiosity-driven question about his food, making this conversation feel different from the others.",
     },
     {
-      text: "Would it help if I came back at a much better time — maybe when foot traffic is lighter and you have more headspace to actually evaluate whether something like this makes sense for you?",
+      text: "Would it help if I came back when foot traffic is lighter?",
       correct: false,
       feedback: "He's not complaining about timing, he's complaining about the constant pitches. Coming back later is still another pitch.",
     },
@@ -287,7 +287,7 @@ it11: {
       feedback: "You validate the family structure, use the moment to build rapport with the owner directly, and set up a meeting that includes the decision-maker.",
     },
     {
-      text: "No problem at all. I'll plan to come back when he's around — what days does he usually work so I can make sure I time it right and don't miss him again?",
+      text: "No problem. What days does your son usually come in?",
       correct: false,
       feedback: "You miss the chance to build any rapport with the owner standing in front of you.",
     },
@@ -319,7 +319,7 @@ it12: {
       feedback: "Generic 'times are changing' language doesn't respect the specific context of his long-running business.",
     },
     {
-      text: "I completely understand — not every restaurant needs delivery and your model is clearly working. Thanks so much for your time and congratulations on forty years. That's a real achievement.",
+      text: "Completely understand. Not every restaurant needs delivery — congratulations on forty years.",
       correct: false,
       feedback: "Conceding too quickly wastes an opportunity to help him see delivery as an extension of his success, not a departure from it.",
     },
@@ -373,7 +373,7 @@ it14: {
       feedback: "Ignoring the coordination failure and launching into a pitch shows you don't take his frustration seriously.",
     },
     {
-      text: "That's unusual and I'll definitely look into it on our end. But while I'm here — we have a new promotion running specifically for Italian restaurants in this area right now.",
+      text: "I'll look into it. We have a new promotion for Italian restaurants right now.",
       correct: false,
       feedback: "Brushing past the issue to pivot to promotions feels tone-deaf.",
     },
@@ -384,7 +384,7 @@ it15: {
   objection: "I already said no to the last guy. What part of 'no' don't you understand?",
   responses: [
     {
-      text: "I apologize — I wasn't aware of the previous conversation. I don't want to add to your frustration, so I'll leave you alone and make sure we don't reach back out going forward.",
+      text: "I apologize — I wasn't aware. I'll leave and make sure we don't contact you again.",
       correct: false,
       feedback: "Full retreat means you lose any chance to salvage the relationship or understand the real objection.",
     },
@@ -416,7 +416,7 @@ it16: {
       feedback: "Generic reassurance doesn't address his specific concern about his unique dining experience.",
     },
     {
-      text: "That's actually a really valid point and I appreciate you sharing it. A lot of experience-driven restaurants feel exactly the same way and decide delivery just isn't the right fit for their concept.",
+      text: "That's a valid point. A lot of experience-driven restaurants decide delivery isn't right for them.",
       correct: false,
       feedback: "Agreeing too quickly without exploring options leaves potential value on the table.",
     },
@@ -465,7 +465,7 @@ it18: {
   objection: "I don't have time for this. We're short-staffed as it is.",
   responses: [
     {
-      text: "I totally understand. Let me know when things settle down a bit and I'll circle back when the timing is better and you have more bandwidth to think about it.",
+      text: "Totally understand. I'll circle back when things settle down for you.",
       correct: false,
       feedback: "Staffing issues don't 'settle down', you're deferring indefinitely with no follow-up plan.",
     },
@@ -492,7 +492,7 @@ it19: {
   objection: "I had a bad experience with a delivery driver last year. Food arrived cold and the customer blamed us.",
   responses: [
     {
-      text: "That won't happen with Uber Eats. Our drivers are held to high standards and we have strong ratings consistently across the board — it's a genuinely different experience from what you dealt with.",
+      text: "That won't happen with us — our drivers are held to high standards.",
       correct: false,
       feedback: "Blanket guarantees about driver quality aren't credible and don't address his specific bad experience.",
     },
@@ -535,7 +535,7 @@ it20: {
       feedback: "Generic reassurance without asking about his specific situation doesn't create engagement.",
     },
     {
-      text: "Got it — if you ever want to explore it down the road, feel free to keep my card and reach out whenever it feels like the right moment for you to revisit it.",
+      text: "Got it. Keep my card and reach out if you ever want to revisit.",
       correct: false,
       feedback: "Accepting 'no' without any curiosity or exploration wastes the interaction.",
     },
@@ -579,7 +579,7 @@ it22: {
       feedback: "You elevate his role, ask for Maria's availability, and position the conversation as needing both perspectives, making him an ally rather than a barrier.",
     },
     {
-      text: "Sure, where's Maria? I'll go find her right now and get out of your hair so you can get back to what you're doing.",
+      text: "Sure, where's Maria? I'll go find her right now.",
       correct: false,
       feedback: "Immediately ditching the person you're talking to feels transactional and rude.",
     },
@@ -616,7 +616,7 @@ it23: {
       feedback: "You validate his distrust, remove yourself as the thing he needs to trust, and offer verifiable evidence, shifting trust from you to data.",
     },
     {
-      text: "I understand completely. No pressure at all — take my card and reach out whenever you feel ready. There's absolutely no timeline or follow-up push from my side.",
+      text: "No pressure at all. Take my card and reach out whenever you feel ready.",
       correct: false,
       feedback: "Retreating completely means his distrust wins and you never get the chance to earn credibility.",
     },
@@ -643,7 +643,7 @@ it24: {
       feedback: "Criticizing his existing investment creates defensiveness rather than openness.",
     },
     {
-      text: "We're really not competing with your website at all — it's a completely different channel with a different audience, different purchasing intent, and customers who'd never find you any other way.",
+      text: "We're not competing with your website — it's a completely different channel and audience.",
       correct: false,
       feedback: "While true, this is too abstract without a concrete example of how the channels differ.",
     },
@@ -697,7 +697,7 @@ it26: {
       feedback: "You compliment his success, reframe delivery as non-competing revenue, and probe for slow periods where delivery could fill gaps.",
     },
     {
-      text: "Sounds like things are going really well. I'll check back in a few months when things might have shifted and you have more bandwidth to think seriously about it.",
+      text: "Sounds like things are going well. I'll check back in a few months.",
       correct: false,
       feedback: "Accepting the brush-off without exploring the opportunity misses the fact that high demand is actually the ideal time to add delivery.",
     },
@@ -718,7 +718,7 @@ it27: {
       feedback: "Bashing competitors doesn't address his core concern, he's worried about being lied to again.",
     },
     {
-      text: "I can guarantee you'll do way better than 5 orders a week. Our platform is on a completely different level in terms of reach and active users right in your neighborhood.",
+      text: "I can guarantee you'll do way better than 5 orders a week.",
       correct: false,
       feedback: "Making guarantees after he was burned by guarantees destroys any chance of trust.",
     },
@@ -735,7 +735,7 @@ it28: {
   objection: "My food doesn't travel well. Pasta gets soggy, pizza gets cold.",
   responses: [
     {
-      text: "Our drivers move fast — food usually arrives in pretty good condition even for pasta dishes because of how quickly handoffs happen from pickup all the way through to delivery.",
+      text: "Our drivers move fast — food usually arrives in surprisingly good condition.",
       correct: false,
       feedback: "This doesn't address the fundamental issue of certain dishes not traveling well regardless of speed.",
     },
@@ -800,7 +800,7 @@ it30: {
       feedback: "You validate the COVID chaos, acknowledge it was different, and drill into the specific problem, which you can then address if it's been solved.",
     },
     {
-      text: "That's totally understandable. Things have really settled down since those days — it might be worth giving it another try now that the platforms have fully matured and the dust has cleared.",
+      text: "Totally understandable. Things have settled down a lot since COVID — worth another try.",
       correct: false,
       feedback: "'Give it another try' without addressing what went wrong sounds like you want him to repeat a mistake.",
     },
@@ -816,7 +816,7 @@ it31: {
   objection: "I don't even know what Uber Eats is, honestly. I don't use these apps.",
   responses: [
     {
-      text: "Really? Uber Eats is one of the biggest apps in the world and has been for years. You should download it sometime — it would really help you understand the scale we're talking about here.",
+      text: "Really? Uber Eats has been one of the biggest apps in the world for years.",
       correct: false,
       feedback: "Making him feel out of touch is the opposite of building rapport.",
     },
@@ -854,7 +854,7 @@ it32: {
       feedback: "You empathize with his financial stress, clarify there's no upfront cost, and offer relevant first-month data for new restaurants.",
     },
     {
-      text: "I completely understand the pressure of a new lease — that's a really stressful situation. When things stabilize financially, just give us a call and we'll get you set up at whatever point feels right.",
+      text: "I understand — a new lease is stressful. Give us a call when things stabilize.",
       correct: false,
       feedback: "A new restaurant is actually the ideal time to add delivery, waiting means missing early momentum.",
     },
@@ -897,7 +897,7 @@ it34: {
   objection: "I saw on the news that restaurants are suing Uber Eats over fees.",
   responses: [
     {
-      text: "That's actually old news at this point. Things have genuinely changed a lot since those stories originally ran and the situation today is very different from what was covered back then.",
+      text: "That's old news — things have changed a lot since those stories ran.",
       correct: false,
       feedback: "Dismissing something he saw on the news as 'old' feels evasive.",
     },
